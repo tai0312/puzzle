@@ -5,3 +5,9 @@
 #how-to-play {
     margin-left: 20px;
 }
+img {
+    max-width: 100%;
+}
+.bufferImg{
+    visibility: hidden;
+}

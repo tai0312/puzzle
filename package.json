@@ -1,7 +1,6 @@
 {
   "name": "last-task",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "vite",
@@ -17,6 +16,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.0",
-    "vite": "^5.0.0"
-  }
+    "vite": "^5.0.4"
+  },
+  "description": ""
 }
