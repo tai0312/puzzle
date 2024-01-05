@@ -23,8 +23,22 @@ class Piece {
 async function fetchData(){
     const response = await fetch("https://dog.ceo/api/breeds/image/random");
     const image = await response.json();
-    console.log(image);
+    console.log(image.message);
     return image.message;
+}
+
+async function getPicture(){
+    const newContent = await fetchData();
+    const myImg = new Image();
+    myImg.src = newContent;
+    myImg.onload = ()=>{
+        const orgWidth = myImg.width;
+        const orgHeight = myImg.height;
+        console.log(myImg.Width,myImg.Height);
+        myImg.width = 600;
+        myImg.height = orgHeight * (myImg.width / orgWidth);
+    } 
+    return myImg;
 }
 
 
@@ -33,18 +47,28 @@ export default function App(){
     const [content,setContent] = useState({});
     const canRef = useRef(null);
     const imgRef = useRef(null);
+
     useEffect (() => {
         (async () =>{ 
-            const newContent = await fetchData();
+            /*const newContent = await fetchData();
             console.log(newContent);
-            setContent(newContent);
+            setContent(newContent);*/
+            const myImg = await getPicture();
+            setContent(myImg);
+            const canField = canRef.current;
+            const canContent = canField.getContext('2d');
+
+            canField.width = myImg.width*2;
+            canField.height = myImg.height*2;
+            
+            canContent.drawImage(myImg,0,0,myImg.Width,myImg.Height);
         })();
     },[]);
     return(
         <>
-        <form onSubmit={(event)=>{
+        <form onSubmit={async (event)=>{
             event.preventDefault();
-            const canField = canRef.current;
+            /*const canField = canRef.current;
             const canContent = canField.getContext('2d');
             const imgContent = imgRef.current;
 
@@ -56,7 +80,15 @@ export default function App(){
             
             const myImg = new Image();
             myImg.src = imgContent.src;
-            canContent.drawImage(myImg,0,0,imgWidth,imgHeight);
+            canContent.drawImage(myImg,0,0,imgWidth,imgHeight);*/
+            const myImg = await getPicture();
+            const canField = canRef.current;
+            const canContent = canField.getContext('2d');
+
+            canField.width = myImg.width*2;
+            canField.height = myImg.height*2;
+            
+            canContent.drawImage(myImg,0,0,myImg.Width,myImg.Height);
         }}>
             <p>
                 <button type="submit" id="shuffle">シャッフル</button>
