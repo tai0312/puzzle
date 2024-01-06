@@ -114,12 +114,12 @@ export default function App(){
             <canvas ref={canRef}></canvas>
             
             <div className="pictrures">
-            <ImageList cols={2} gap={30}>
+            <ImageList sx={{ width: 500, height: 450 }} cols={2} gap={30}>
                 {dogPictures.map((item) => (
                 <ImageListItem key={item}>
                     <img
-                    src={`${item}?w=100&h=100&fit=crop&auto=format`}
-                    srcSet={`${item}?w=100&h=100&fit=crop&auto=format&dpr=2 2x`}
+                    src={`${item}?w=164&h=164&fit=crop&auto=format`}
+                    srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                     loading="lazy"
                     />
                 </ImageListItem>
