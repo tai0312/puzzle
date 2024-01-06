@@ -112,9 +112,6 @@ export default function App(){
                 <button type="submit" id="shuffle">シャッフル</button>
             </p>
             <canvas ref={canRef}></canvas>
-            <div className="bufferImg">
-                <img ref={imgRef} src={dogPictures[0]}/>
-            </div>
             
             <ImageList cols={2} gap={15}>
                 {dogPictures.map((item) => (
