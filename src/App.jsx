@@ -69,6 +69,7 @@ const PuzzlePiece = ({ image, piece, puzzleSize }) => {
   };
 
   return (
+    <>
     <Path
       data={createIndentPath()}
       fillPatternImage={image}
@@ -76,6 +77,15 @@ const PuzzlePiece = ({ image, piece, puzzleSize }) => {
       draggable
       onDragEnd={handleDragEnd}
     />
+    <Rect
+        x={piece.col * PIECE_SIZE}
+        y={piece.row * PIECE_SIZE}
+        width={PIECE_SIZE}
+        height={PIECE_SIZE}
+        stroke="black"
+        strokeWidth={2}
+    />
+    </>
   );
 };
 
