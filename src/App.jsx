@@ -28,13 +28,12 @@ async function fetchData(){
     //console.log(image.message);
     //return image.message;
     const response = await fetch("https://splendorous-malabi-4516db.netlify.app/.netlify/functions/data");
-    //console.log(response);
     var data;
-    if (response.body) {
+    if (response.ok) {
         data = await response.json();
         console.log(data);
     } else {
-        console.error("Error: Body is empty");
+        console.error("Error: ", response.statusText);
     }
     return data;
 }
