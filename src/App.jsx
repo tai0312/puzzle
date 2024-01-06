@@ -116,11 +116,11 @@ export default function App(){
             <div className="thumb-bar">
                 {dogPictures.map((url) => {
                     return (
-                    <img key={url.src} src={url.src} 
+                    <img key={url} src={url} 
                     onClick={()=>{setDisplayImg(url)}}/>
                     );
                 })}
-      </div>
+            </div>
         </form>
         
         
