@@ -117,7 +117,7 @@ export default function App(){
             <ImageList cols={2} gap={30} rowHeight={300}>
                 {dogPictures.map((item) => (
                 <ImageListItem key={item}>
-                    <img width={300} height={300}
+                    <img
                     src={`${item}?w=164&h=164&fit=crop&auto=format`}
                     srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                     loading="lazy"
