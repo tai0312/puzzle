@@ -60,20 +60,24 @@ export default function App(){
     const [catPictures,setCatPictures] = useState([]);
     const canRef = useRef(null);
     const imgRef = useRef(null);
-    let img = new window.Image();
-    const imgSize = {w : 0,h : 0};
+    const [img, setImg] = useState(null);
+    const [imgSize, setImgSize] = useState({w: 0, h: 0});
 
     useEffect (() => {
         (async () =>{ 
             const newContent = await fetchData();
             setDogPictures(newContent.dog);
             setCatPictures(newContent.cat);
-            img.src = newContent.dog[0];
-            console.log(img);
-            img.onload = function(){
-                imgSize.w = this.width;
-                imgSize.h = this.height;
+            const loadImage = async () => {
+                const src = newContent.dog[0];
+                let loadImg = new window.Image();
+                loadImg.src = src;
+                loadImg.onload = () => {
+                  setImgSize({w: loadImg.width, h: loadImg.height});
+                  setImg(loadImg);
+                };
             };
+            loadImage();
             
             /*
             const canField = canRef.current;
@@ -117,7 +121,7 @@ export default function App(){
             <Stage width={1200} height={800}>
                 <Layer>
                     <Rect stroke='black' strokeWidth={1} x={0} y={0} width={imgSize.w} height={imgSize.h}/>
-                    <Image image ={img} width={600} height={600*imgSize.h/imgSize.w}/>
+                    {img && <Image image ={img} width={600} height={600*imgSize.h/imgSize.w}/>}
                 </Layer>
             </Stage>
             
