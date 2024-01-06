@@ -21,14 +21,14 @@ class Piece {
 
 
 async function fetchData(){
-    const response = await fetch("https://splendorous-malabi-4516db.netlify.app/.netlify/functions/data");
     //const response = await fetch("https://dog.ceo/api/breeds/image/random");
     //const response = await fetch("https://api.thecatapi.com/v1/images/search");
     //const image = await response.json();
     //const image = await response.json();
     //console.log(image.message);
     //return image.message;
-    console.log(response.json().dog);
+    const response = await fetch("https://splendorous-malabi-4516db.netlify.app/.netlify/functions/data");
+    console.log(response.status);
     return response;
 }
 
