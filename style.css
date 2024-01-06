@@ -12,5 +12,6 @@ img {
     visibility: hidden;
 }
 #thumb-bar{
-    width: 300px;
+    max-width: 300px;
+    min-width: 300px;
 }
