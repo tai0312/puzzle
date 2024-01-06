@@ -12,6 +12,8 @@ img {
     visibility: hidden;
 }
 .thumb-bar img{
-    width: 300px;
-    height: auto;
+    width: auto;
+    height: 300px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
