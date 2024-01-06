@@ -2,6 +2,7 @@ import { useEffect, useState,useRef } from "react";
 import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+import { Layer, Rect,Image, Stage } from "react-konva";
 
 const pieceSize = 100;
 let widthCnt = 0;
@@ -24,12 +25,6 @@ class Piece {
 
 
 async function fetchData(){
-    //const response = await fetch("https://dog.ceo/api/breeds/image/random");
-    //const response = await fetch("https://api.thecatapi.com/v1/images/search");
-    //const image = await response.json();
-    //const image = await response.json();
-    //console.log(image.message);
-    //return image.message;
     const response = await fetch("https://splendorous-malabi-4516db.netlify.app/.netlify/functions/data");
     var data;
     if (response.ok) {
@@ -65,14 +60,15 @@ export default function App(){
     const [catPictures,setCatPictures] = useState([]);
     const canRef = useRef(null);
     const imgRef = useRef(null);
+    let img = new window.Image();
 
     useEffect (() => {
         (async () =>{ 
             const newContent = await fetchData();
             setDogPictures(newContent.dog);
             setCatPictures(newContent.cat);
-            /*const myImg = await getPicture();
-            setContent(myImg);
+            img.src = newContent.dog[0];
+            /*
             const canField = canRef.current;
             const canContent = canField.getContext('2d');
 
@@ -111,7 +107,12 @@ export default function App(){
             <p>
                 <button type="submit" id="shuffle">シャッフル</button>
             </p>
-            <canvas ref={canRef}></canvas>
+            <Stage width={1200} height={800}>
+                <Layer>
+                    <Rect stroke='black' strokeWidth={1} x={0} y={0} width={img.width} height={img.height}/>
+                    <Image image ={img} width={img.width} height={img.height}/>
+                </Layer>
+            </Stage>
             
             <div className="pictrures">
             <ImageList cols={2} gap={30}>
