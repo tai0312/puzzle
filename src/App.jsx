@@ -21,10 +21,15 @@ class Piece {
 
 
 async function fetchData(){
-    const response = await fetch("https://dog.ceo/api/breeds/image/random");
-    const image = await response.json();
-    console.log(image.message);
-    return image.message;
+    const response = await fetch("https://splendorous-malabi-4516db.netlify.app/.netlify/functions/data");
+    //const response = await fetch("https://dog.ceo/api/breeds/image/random");
+    //const response = await fetch("https://api.thecatapi.com/v1/images/search");
+    //const image = await response.json();
+    //const image = await response.json();
+    //console.log(image.message);
+    //return image.message;
+    console.log(response.dog);
+    return response;
 }
 
 async function getPicture(){
@@ -50,10 +55,10 @@ export default function App(){
 
     useEffect (() => {
         (async () =>{ 
-            /*const newContent = await fetchData();
+            const newContent = await fetchData();
             console.log(newContent);
-            setContent(newContent);*/
-            const myImg = await getPicture();
+            setContent(newContent);
+            /*const myImg = await getPicture();
             setContent(myImg);
             const canField = canRef.current;
             const canContent = canField.getContext('2d');
@@ -61,14 +66,14 @@ export default function App(){
             canField.width = myImg.width*2;
             canField.height = myImg.height*2;
             
-            canContent.drawImage(myImg,0,0,myImg.Width,myImg.Height);
+            canContent.drawImage(myImg,0,0,myImg.Width,myImg.Height);*/
         })();
     },[]);
     return(
         <>
         <form onSubmit={async (event)=>{
             event.preventDefault();
-            /*const canField = canRef.current;
+            const canField = canRef.current;
             const canContent = canField.getContext('2d');
             const imgContent = imgRef.current;
 
@@ -80,15 +85,15 @@ export default function App(){
             
             const myImg = new Image();
             myImg.src = imgContent.src;
-            canContent.drawImage(myImg,0,0,imgWidth,imgHeight);*/
-            const myImg = await getPicture();
+            canContent.drawImage(myImg,0,0,imgWidth,imgHeight);
+            /*const myImg = await getPicture();
             const canField = canRef.current;
             const canContent = canField.getContext('2d');
 
             canField.width = myImg.width*2;
             canField.height = myImg.height*2;
             
-            canContent.drawImage(myImg,0,0,myImg.Width,myImg.Height);
+            canContent.drawImage(myImg,0,0,myImg.Width,myImg.Height);*/
         }}>
             <p>
                 <button type="submit" id="shuffle">シャッフル</button>
