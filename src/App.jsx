@@ -116,7 +116,7 @@ export default function App(){
             <div className="thumb-bar">
                 {dogPictures.map((url) => {
                     return (
-                    <img className="picture" key={url} src={url} 
+                    <img width="400px" key={url} src={url} 
                     onClick={()=>{setDisplayImg(url)}}/>
                     );
                 })}

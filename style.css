@@ -11,7 +11,3 @@ img {
 .bufferImg{
     visibility: hidden;
 }
-#picture{
-    max-width: 300px;
-    min-width: 300px;
-}
