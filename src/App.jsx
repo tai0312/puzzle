@@ -110,7 +110,7 @@ export default function App(){
             </p>
             <canvas ref={canRef}></canvas>
             <div className="bufferImg">
-                <img ref={imgRef} src={content}/>
+                <img ref={imgRef} src={dogPictures[0]}/>
             </div>
             
             <div className="thumb-bar">
