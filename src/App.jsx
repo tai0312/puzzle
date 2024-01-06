@@ -115,7 +115,7 @@ export default function App(){
             <Stage width={1200} height={800}>
                 <Layer>
                     <Rect stroke='black' strokeWidth={1} x={0} y={0} width={img.width} height={img.height}/>
-                    <Image image ={img} width={img.width} height={img.height}/>
+                    <Image image ={img.src} width={600} height={600*img.height/img.width}/>
                 </Layer>
             </Stage>
             
