@@ -4,7 +4,7 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import { Layer, Rect,Image, Stage } from "react-konva";
 
-const pieceSize = 100;
+const pieceSize = 80;
 let widthCnt = 0;
 let lengthCnt = 0;
 
@@ -120,6 +120,7 @@ export default function App(){
             </p>
             <Stage width={1200} height={800}>
                 <Layer>
+                    <Rect stroke='black' strokeWidth={5} x={0} y={0} width={1200} height={800}/>
                     <Rect stroke='black' strokeWidth={1} x={0} y={0} width={imgSize.w} height={imgSize.h}/>
                     {img && <Image image ={img} width={640} height={640*imgSize.h/imgSize.w}/>}
                 </Layer>
