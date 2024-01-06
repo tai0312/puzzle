@@ -58,15 +58,16 @@ async function getPicture(){
 
 
 export default function App(){
-    const [content,setContent] = useState({});
+    const [dogPictures,setDogPictures] = useState([]);
+    const [catPictures,setCatPictures] = useState([]);
     const canRef = useRef(null);
     const imgRef = useRef(null);
 
     useEffect (() => {
         (async () =>{ 
             const newContent = await fetchData();
-            console.log(newContent.dog);
-            setContent(newContent);
+            setDogPictures(newContent.dog);
+            setCatPictures(newContent.cat);
             /*const myImg = await getPicture();
             setContent(myImg);
             const canField = canRef.current;
@@ -112,7 +113,14 @@ export default function App(){
                 <img ref={imgRef} src={content}/>
             </div>
             
-            
+            <div className="thumb-bar">
+                {dogPictures.map((url) => {
+                    return (
+                    <img key={url.src} src={url.src} 
+                    onClick={()=>{setDisplayImg(url)}}/>
+                    );
+                })}
+      </div>
         </form>
         
         
