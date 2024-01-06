@@ -114,7 +114,7 @@ export default function App(){
             <canvas ref={canRef}></canvas>
             
             <div className="pictrures">
-            <ImageList cols={2} gap={30} rowHeight={300}>
+            <ImageList cols={2} gap={30}>
                 {dogPictures.map((item) => (
                 <ImageListItem key={item}>
                     <img
