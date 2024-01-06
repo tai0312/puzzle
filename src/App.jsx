@@ -28,7 +28,7 @@ async function fetchData(){
     //const image = await response.json();
     //console.log(image.message);
     //return image.message;
-    console.log(response.json());
+    console.log(response.json().dog);
     return response;
 }
 
