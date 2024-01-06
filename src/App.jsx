@@ -59,7 +59,6 @@ export default function App(){
     useEffect (() => {
         (async () =>{ 
             const newContent = await fetchData();
-            console.log(newContent);
             setContent(newContent);
             /*const myImg = await getPicture();
             setContent(myImg);
