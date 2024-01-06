@@ -29,13 +29,14 @@ async function fetchData(){
     //return image.message;
     const response = await fetch("https://splendorous-malabi-4516db.netlify.app/.netlify/functions/data");
     //console.log(response);
+    var data;
     if (response.body) {
-        const data = await response.json();
+        data = await response.json();
         console.log(data);
-      } else {
+    } else {
         console.error("Error: Body is empty");
-      }
-    return response.json();
+    }
+    return data;
 }
 
 async function getPicture(){
