@@ -40,6 +40,9 @@ async function fetchData(){
 
 async function getPicture(){
     const newContent = await fetchData();
+    const dogPictures = newContent.dog;
+    const catPictures = newContent.cat;
+
     const myImg = new Image();
     myImg.src = newContent;
     myImg.onload = ()=>{
@@ -62,6 +65,7 @@ export default function App(){
     useEffect (() => {
         (async () =>{ 
             const newContent = await fetchData();
+            console.log(newContent.dog);
             setContent(newContent);
             /*const myImg = await getPicture();
             setContent(myImg);
