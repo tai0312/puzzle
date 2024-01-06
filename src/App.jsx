@@ -35,7 +35,7 @@ async function fetchData(){
       } else {
         console.error("Error: Body is empty");
       }
-    return data;
+    return response.json();
 }
 
 async function getPicture(){
