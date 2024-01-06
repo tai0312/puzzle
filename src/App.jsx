@@ -61,6 +61,7 @@ export default function App(){
     const canRef = useRef(null);
     const imgRef = useRef(null);
     let img = new window.Image();
+    const imgSize = {w : 0,h : 0};
 
     useEffect (() => {
         (async () =>{ 
@@ -70,7 +71,8 @@ export default function App(){
             img.src = newContent.dog[0];
             console.log(img);
             img.onload = function(){
-                console.log(this.width,this.height);
+                imgSize.w = this.width;
+                imgSize.h = this.height;
             };
             
             /*
@@ -114,8 +116,8 @@ export default function App(){
             </p>
             <Stage width={1200} height={800}>
                 <Layer>
-                    <Rect stroke='black' strokeWidth={1} x={0} y={0} width={img.width} height={img.height}/>
-                    <Image image ={img} width={600} height={600*img.height/img.width}/>
+                    <Rect stroke='black' strokeWidth={1} x={0} y={0} width={imgSize.w} height={imgSize.h}/>
+                    <Image image ={img} width={600} height={600*imgSize.h/imgSize.w}/>
                 </Layer>
             </Stage>
             
