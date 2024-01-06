@@ -12,7 +12,7 @@ img {
     visibility: hidden;
 }
 .pictures{
-    margin: 0 50px;
+    margin: 50px 0;
 }
 .pictures img{
     width: 300px;
