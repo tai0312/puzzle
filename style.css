@@ -11,6 +11,6 @@ img {
 .bufferImg{
     visibility: hidden;
 }
-.pictures img{
-    max-width: 500px;
+.pictures{
+    margin: 0 10%;
 }
