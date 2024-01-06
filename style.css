@@ -11,3 +11,7 @@ img {
 .bufferImg{
     visibility: hidden;
 }
+.thumb-bar img{
+    width: 300px;
+    height: auto;
+}
