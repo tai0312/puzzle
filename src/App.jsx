@@ -29,10 +29,8 @@ async function fetchData(){
     //return image.message;
     const response = await fetch("https://splendorous-malabi-4516db.netlify.app/.netlify/functions/data");
     //console.log(response);
-    response.json().then((data) => {
-        console.log(data);
-    });
-    return response;
+    const data = response.json();
+    return data;
 }
 
 async function getPicture(){
