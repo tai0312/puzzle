@@ -69,7 +69,10 @@ export default function App(){
             setCatPictures(newContent.cat);
             img.src = newContent.dog[0];
             console.log(img);
-            console.log(img.width,img.height);
+            img.onload = function(){
+                console.log(this.width,this.height);
+            };
+            
             /*
             const canField = canRef.current;
             const canContent = canField.getContext('2d');
