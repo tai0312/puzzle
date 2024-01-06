@@ -113,7 +113,8 @@ export default function App(){
             </p>
             <canvas ref={canRef}></canvas>
             
-            <ImageList cols={2} gap={15}>
+            <div className="pictrures">
+            <ImageList cols={2} gap={30}>
                 {dogPictures.map((item) => (
                 <ImageListItem key={item}>
                     <img
@@ -124,6 +125,7 @@ export default function App(){
                 </ImageListItem>
                 ))}
             </ImageList>
+            </div>
         </form>
         
         
