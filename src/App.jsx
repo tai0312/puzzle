@@ -1,4 +1,7 @@
 import { useEffect, useState,useRef } from "react";
+import * as React from 'react';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
 
 const pieceSize = 100;
 let widthCnt = 0;
@@ -113,14 +116,17 @@ export default function App(){
                 <img ref={imgRef} src={dogPictures[0]}/>
             </div>
             
-            <div className="thumb-bar">
-                {dogPictures.map((url) => {
-                    return (
-                    <img width="400px" key={url} src={url} 
-                    onClick={()=>{setDisplayImg(url)}}/>
-                    );
-                })}
-            </div>
+            <ImageList cols={2} gap={15}>
+                {dogPictures.map((item) => (
+                <ImageListItem key={item}>
+                    <img
+                    src={`${item}?w=164&h=164&fit=crop&auto=format`}
+                    srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                    loading="lazy"
+                    />
+                </ImageListItem>
+                ))}
+            </ImageList>
         </form>
         
         
