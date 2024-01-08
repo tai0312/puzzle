@@ -8,7 +8,7 @@ export default function PuzzlePiece({ image, piece }){
 
     useEffect(() => {
         ( ()=>{
-            console.log(image);
+            console.log("pieces"+image);
         })();
     },[]);
 
