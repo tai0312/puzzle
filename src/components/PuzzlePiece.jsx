@@ -44,8 +44,13 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
         } else {
             pieces[piece.order].position = puzzleSize.cols * puzzleSize.rows;
         }
-        pieces[piece.order].prevX = position.x;
-        pieces[piece.order].prevY = position.y;
+        useEffect(() => {
+            ( ()=>{
+                pieces[piece.order].prevX = position.x;
+                pieces[piece.order].prevY = position.y;
+            })();
+        },[position]);
+        
     };
 
     
