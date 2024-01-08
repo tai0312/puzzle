@@ -13,7 +13,8 @@ export default function Puzzle({ imageUrl }){
 
     useEffect(() => {
         ( () =>{
-            if(image){   
+            if(image){
+                setMovePiece(8*Math.floor(8 * image.height /image.width));
                 setPuzzleSize({
                     cols: 8,
                     rows: Math.floor(8 * image.height /image.width),
@@ -53,12 +54,11 @@ export default function Puzzle({ imageUrl }){
     },[puzzleSize,image]);
 
     useEffect(() => {
-        if(pieces.length >0){
         ( () => {
-            console.log(pieces);
+            console.log(movePiece);
         })();
-    }
-    },[pieces]);
+
+    },[movePiece]);
 
     const mouseMove = (e) => {
         const stage = e.target.getStage();
@@ -73,19 +73,19 @@ export default function Puzzle({ imageUrl }){
             setMovePiece(puzzleSize.cols * puzzleSize.rows);
         }
     };
-    const differentPieces = pieces.filter(piece => piece.order !== movePiece);
-    const samePieces = pieces.filter(piece => piece.order === movePiece);
 
+    const notMovePieces = pieces.filter(piece => piece.order !== movePiece);
+    const movePieces = pieces.filter(piece => piece.order === movePiece);
 
     return (
         <Stage width={puzzleSize.cols * PIECE_SIZE*2} height={puzzleSize.rows * PIECE_SIZE*1.5}>
             <Layer onMouseDown={mouseMove}>
                 <Rect stroke='black' strokeWidth={3} x={0} y={0} width={puzzleSize.cols * PIECE_SIZE*2} height={puzzleSize.rows * PIECE_SIZE*1.5}/>
                 <Rect stroke='black' strokeWidth={3} x={7} y={7} width={puzzleSize.cols * PIECE_SIZE+5} height={puzzleSize.rows * PIECE_SIZE+5}/>
-                {differentPieces.map((piece, index) => (
+                {notMovePieces.map((piece, index) => (
                     <PuzzlePiece key={index} image={image} piece={piece} puzzleSize={puzzleSize} pieces={pieces}/>
                 ))}
-                {samePieces.map((piece, index) => (
+                {movePieces.map((piece, index) => (
                     <PuzzlePiece key={index} image={image} piece={piece} puzzleSize={puzzleSize} pieces={pieces}/>
                 ))}
             </Layer>
