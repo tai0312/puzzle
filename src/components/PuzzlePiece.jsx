@@ -1,14 +1,21 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { Layer, Rect,Image, Stage } from "react-konva";
 
 export default function PuzzlePiece({ image, piece }){
     const [position, setPosition] = useState({ x: piece.x, y: piece.y });
+
+    useEffect(() => {
+        ( () => {
+            console.log(image);
+        })();
+    },[image]);
 
     const handleDragEnd = (e) => {
         const newPosition = e.target.getStage().getPointerPosition();
         console.log(newPosition.x,newPosition.y);
         setPosition({ x: newPosition.x - PIECE_SIZE / 2, y: newPosition.y - PIECE_SIZE / 2 });
     };
+
     
     return (
         <>
