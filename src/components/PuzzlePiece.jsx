@@ -16,19 +16,17 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
     
     
 
-    /*const handleMouseDown = (e) => {
+    const handleMouseDown = (e) => {
         const mousePos = e.target.getStage().getPointerPosition();
-        setPosition({ x: mousePos.x - PIECE_SIZE / 2, y: mousePos.y - PIECE_SIZE / 2 });
-    };*/
-    
-    const handleDragStart = (e) => {
         const shapePos = e.target.position();
-        const mousePos = e.target.getStage().getPointerPosition();
+        setPosition({ x: mousePos.x - PIECE_SIZE / 2, y: mousePos.y - PIECE_SIZE / 2 });
         setOffset({
             x: mousePos.x - shapePos.x,
             y: mousePos.y - shapePos.y,
         });
     };
+    
+
     
     const handleDragMove = (e) => {
         const mousePos = e.target.getStage().getPointerPosition();
@@ -80,8 +78,7 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
         x={position.x}
         y={position.y}
         draggable
-        //onMouseDown={handleMouseDown}
-        onDragStart={handleDragStart}
+        onMouseDown={handleMouseDown}
         onDragMove={handleDragMove}
         onDragEnd={handleDragEnd}
         >
