@@ -61,8 +61,8 @@ const Puzzle = ({ imageUrl, imageSize }) => {
     for (let i = 0; i < puzzleSize.rows; i++) {
       for (let j = 0; j < puzzleSize.cols; j++) {
         newPieces.push({
-          x: j * PIECE_SIZE,
-          y: i * PIECE_SIZE,
+          x: 10+j * PIECE_SIZE,
+          y: 10+i * PIECE_SIZE,
           order: i * puzzleSize.cols + j,
         });
       }
@@ -84,7 +84,7 @@ const Puzzle = ({ imageUrl, imageSize }) => {
     <Stage width={puzzleSize.cols * PIECE_SIZE*2} height={puzzleSize.rows * PIECE_SIZE*1.5}>
       <Layer>
         <Rect stroke='black' strokeWidth={3} x={0} y={0} width={puzzleSize.cols * PIECE_SIZE*2} height={puzzleSize.rows * PIECE_SIZE*1.5}/>
-        <Rect stroke='black' strokeWidth={3} x={0} y={0} width={puzzleSize.cols * PIECE_SIZE} height={puzzleSize.rows * PIECE_SIZE}/>
+        <Rect stroke='black' strokeWidth={3} x={10} y={10} width={puzzleSize.cols * PIECE_SIZE} height={puzzleSize.rows * PIECE_SIZE}/>
         {pieces.map((piece, index) => (
           <PuzzlePiece key={index} image={image} piece={piece} />
         ))}
@@ -140,7 +140,7 @@ export default function App(){
             <p>
                 <button type="submit" id="shuffle">シャッフル</button>
             </p>
-            
+
             <Puzzle imageUrl={dogPictures[0]} imageSize={imgSize}/>
             
             <div className="pictrures">
