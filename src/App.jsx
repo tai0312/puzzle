@@ -50,7 +50,7 @@ const PuzzlePiece = ({ image, piece }) => {
   );
 };
 
-const Puzzle = ({ imageUrl }) => {
+const Puzzle = ({ imageUrl, imageSize }) => {
   const [image] = useImage(imageUrl);
   const [pieces, setPieces] = useState([]);
   const [puzzleSize, setPuzzleSize] = useState({ cols: 0, rows: 0 });
@@ -81,8 +81,10 @@ const Puzzle = ({ imageUrl }) => {
   }, [image]);
 
   return (
-    <Stage width={puzzleSize.cols * PIECE_SIZE} height={puzzleSize.rows * PIECE_SIZE}>
+    <Stage width={puzzleSize.cols * PIECE_SIZE*2} height={puzzleSize.rows * PIECE_SIZE*1.5}>
       <Layer>
+        <Rect stroke='black' strokeWidth={3} x={0} y={0} width={puzzleSize.cols * PIECE_SIZE*2} height={puzzleSize.rows * PIECE_SIZE*1.5}/>
+        <Rect stroke='black' strokeWidth={3} x={0} y={0} width={puzzleSize.cols * PIECE_SIZE} height={puzzleSize.rows * PIECE_SIZE}/>
         {pieces.map((piece, index) => (
           <PuzzlePiece key={index} image={image} piece={piece} />
         ))}
@@ -110,7 +112,7 @@ export default function App(){
                 let loadImg = new window.Image();
                 loadImg.src = src;
                 loadImg.onload = () => {
-                  setImgSize({w: loadImg.width, h: loadImg.height});
+                  setImgSize({w: 640, h: 640*loadImg.height/loadImg.width});
                   setImg(loadImg);
                 };
             };
@@ -138,13 +140,8 @@ export default function App(){
             <p>
                 <button type="submit" id="shuffle">シャッフル</button>
             </p>
-            <Stage width={1200} height={800}>
-                <Layer>
-                    <Rect stroke='black' strokeWidth={5} x={0} y={0} width={1200} height={800}/>
-                    <Rect stroke='black' strokeWidth={1} x={0} y={0} width={imgSize.w} height={imgSize.h}/>
-                    {img && <Puzzle imageUrl={dogPictures[0]}/>/*<Image image ={img} width={640} height={640*imgSize.h/imgSize.w}/>*/}
-                </Layer>
-            </Stage>
+            
+            <Puzzle imageUrl={dogPictures[0]} imageSize={imgSize}/>
             
             <div className="pictrures">
             <ImageList cols={2} gap={30}>
