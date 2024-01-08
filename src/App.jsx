@@ -39,7 +39,7 @@ export default function App(){
                 };
             };
             loadImage();
-            console.log(dogPictures);
+            console.log(newContent);
         })();
     },[]);
     return(
