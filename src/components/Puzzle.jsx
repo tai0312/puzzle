@@ -12,6 +12,7 @@ export default function Puzzle({ imageUrl, imageSize }){
 
     useEffect(() => {
         ( () =>{
+            console.log(imageSize);
             if(image){
                 const newPieces = [];
                 if (image) {
@@ -20,7 +21,7 @@ export default function Puzzle({ imageUrl, imageSize }){
                         rows: Math.floor(image.height / PIECE_SIZE),
                     });
                 }
-                console.log(imageSize);
+                
                 for (let i = 0; i < puzzleSize.rows; i++) {
                     for (let j = 0; j < puzzleSize.cols; j++) {
                         newPieces.push({
