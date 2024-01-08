@@ -39,7 +39,7 @@ export default function Puzzle({ imageUrl, imageSize }){
                 }
 
                 setPieces(newPieces.sort(() => Math.random() - 0.5));
-                console.log(newPieces);
+                console.log(image);
             }
         })();
     }, [image]);
