@@ -5,7 +5,7 @@ import PuzzlePiece from "./PuzzlePiece";
 
 const PIECE_SIZE = 80;
 
-export default function Puzzle({ imageUrl, imageSize }){
+export default function Puzzle({ imageUrl }){
     const [image] = useImage(imageUrl);
     const [pieces, setPieces] = useState([]);
     const [puzzleSize, setPuzzleSize] = useState({ cols: 0, rows: 0 });
@@ -33,6 +33,7 @@ export default function Puzzle({ imageUrl, imageSize }){
                     x: 10+j * PIECE_SIZE,
                     y: 10+i * PIECE_SIZE,
                     order: i * puzzleSize.cols + j,
+                    position: i * puzzleSize.cols + j,
                     originX: 10+j * image.width / puzzleSize.cols,
                     originY: 10+i * image.height / puzzleSize.rows,
                     cropX: j * image.width / puzzleSize.cols,
@@ -63,7 +64,7 @@ export default function Puzzle({ imageUrl, imageSize }){
                 <Rect stroke='black' strokeWidth={3} x={0} y={0} width={puzzleSize.cols * PIECE_SIZE*2} height={puzzleSize.rows * PIECE_SIZE*1.5}/>
                 <Rect stroke='black' strokeWidth={3} x={7} y={7} width={puzzleSize.cols * PIECE_SIZE+5} height={puzzleSize.rows * PIECE_SIZE+5}/>
                 {pieces.length > 0 && pieces.map((piece, index) => (
-                    <PuzzlePiece key={index} image={image} piece={piece} />
+                    <PuzzlePiece key={index} image={image} piece={piece} puzzleSize={puzzleSize} pieces={pieces}/>
                 ))}
             </Layer>
         </Stage>

@@ -20,24 +20,12 @@ async function fetchData(){
 export default function App(){
     const [dogPictures,setDogPictures] = useState([]);
     const [catPictures,setCatPictures] = useState([]);
-    const [img, setImg] = useState(null);
-    const [imgSize, setImgSize] = useState({w: 0, h: 0});
 
     useEffect (() => {
         (async () =>{ 
             const newContent = await fetchData();
             setDogPictures(newContent.dog);
             setCatPictures(newContent.cat);
-            const loadImage = async () => {
-                const src = newContent.dog[0];
-                let loadImg = new window.Image();
-                loadImg.src = src;
-                loadImg.onload = () => {
-                  setImgSize({w: 640, h: 640*loadImg.height/loadImg.width});
-                  setImg(loadImg);
-                };
-            };
-            loadImage();
         })();
     },[]);
     return(
@@ -50,7 +38,7 @@ export default function App(){
                 <button type="submit" id="shuffle">シャッフル</button>
             </p>
 
-            {dogPictures.length > 0 && <Puzzle imageUrl={dogPictures[0]} imageSize={imgSize}/>}
+            {dogPictures.length > 0 && <Puzzle imageUrl={dogPictures[0]}/>}
             <div className="pictrures">
             <ImageList cols={2} gap={30}>
                 {dogPictures.map((item) => (

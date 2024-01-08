@@ -3,7 +3,7 @@ import { Layer, Rect,Image, Group } from "react-konva";
 
 const PIECE_SIZE = 80;
 
-export default function PuzzlePiece({ image, piece }){
+export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
     const [position, setPosition] = useState({ x: piece.x, y: piece.y });
 
     useEffect(() => {
@@ -13,10 +13,35 @@ export default function PuzzlePiece({ image, piece }){
         })();
     },[]);
 
-    const handleDragEnd = (e) => {
+    const handleDrag = (e) => {
         const newPosition = e.target.getStage().getPointerPosition();
         console.log(newPosition.x,newPosition.y);
         setPosition({ x: newPosition.x - PIECE_SIZE / 2, y: newPosition.y - PIECE_SIZE / 2 });
+    };
+
+    const handleDragEnd = (e) => {
+        const newPosition = e.target.getStage().getPointerPosition();
+        if(0 <= newPosition.x && puzzleSize.cols*PIECE_SIZE >= newPosition.x && 0 <= newPosition.y && puzzleSize.rows * PIECE_SIZE >= newPosition.y ){
+            const position = Math.floor(newPosition.y / 80) * 8 + Math.floor(newPosition.x / 80);
+            if(position != piece.position){
+                let i = 0;
+                while(i < puzzleSize.cols * puzzleSize.rows && position != pieces[i].position){
+                    i++;
+                }
+                if(i == puzzleSize.cols * puzzleSize.rows){
+                    setPosition({ x: Math.floor(newPosition.x / 80)*80, y: Math.floor(newPosition.y / 80)*80});
+                    pieces[piece.order].position = position;
+                } else {
+                    if(piece.position < puzzleSize.cols * puzzleSize.rows){
+                        setPosition({ x: piece.position % 8 * 80, y: Math.floor(piece.position / 8) * 80});
+                    }
+                }
+            } else {
+                setPosition({ x: piece.position % 8 * 80, y: Math.floor(piece.position / 8) * 80});
+            }
+        } else {
+            pieces[piece.order].position = puzzleSize.cols * puzzleSize.rows;
+        }
     };
 
     
@@ -26,7 +51,8 @@ export default function PuzzlePiece({ image, piece }){
         x={position.x}
         y={position.y}
         draggable
-        onMouseDown={handleDragEnd}
+        onMouseDown={handleDrag}
+        onMouseUp={handleDragEnd}
         >
         <Image
             image={image}
