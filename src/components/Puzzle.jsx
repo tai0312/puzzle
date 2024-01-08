@@ -43,6 +43,11 @@ export default function Puzzle({ imageUrl, imageSize }){
             }
         })();
     }, [image]);
+    useEffect(() => {
+        ( () => {
+            console.log(pieces);
+        })();
+    },[pieces]);
 
 
     return (
