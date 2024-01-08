@@ -17,17 +17,23 @@ export default function Puzzle({ imageUrl, imageSize }){
                 const newPieces = [];
                 if (image) {
                     setPuzzleSize({
-                        cols: Math.floor(image.width / PIECE_SIZE),
-                        rows: Math.floor(image.height / PIECE_SIZE),
+                        cols: 8,
+                        rows: Math.floor(8 * image.height /image.width),
                     });
                 }
                 
                 for (let i = 0; i < puzzleSize.rows; i++) {
                     for (let j = 0; j < puzzleSize.cols; j++) {
                         newPieces.push({
-                        x: 10+j * PIECE_SIZE,
-                        y: 10+i * PIECE_SIZE,
+                        x: 10+j * image.width / puzzleSize.cols,
+                        y: 10+i * image.height / puzzleSize.rows,
                         order: i * puzzleSize.cols + j,
+                        originX: 10+j * image.width / puzzleSize.cols,
+                        originY: 10+i * image.height / puzzleSize.rows,
+                        cropX: j * image.width / puzzleSize.cols,
+                        cropY: i * image.height / puzzleSize.rows,
+                        cropW: image.width / puzzleSize.cols,
+                        cropH: image.height / puzzleSize.rows,
                         });
                     }
                 }

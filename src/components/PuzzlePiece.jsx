@@ -1,6 +1,8 @@
 import { useState,useEffect } from "react";
 import { Layer, Rect,Image, Stage } from "react-konva";
 
+const PIECE_SIZE = 80;
+
 export default function PuzzlePiece({ image, piece }){
     const [position, setPosition] = useState({ x: piece.x, y: piece.y });
 
@@ -27,6 +29,12 @@ export default function PuzzlePiece({ image, piece }){
             height={PIECE_SIZE}
             draggable
             onMouseDown={handleDragEnd}
+            crop={{
+                x: piece.cropX,
+                y: piece.cropY,
+                width: piece.cropW,
+                height: piece.cropH,
+            }}
         />
         <Rect
             x={position.x}
