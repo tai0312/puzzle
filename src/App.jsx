@@ -39,7 +39,7 @@ export default function App(){
                 };
             };
             loadImage();
-            console.log(newContent);
+            console.log(newContent.dog);
         })();
     },[]);
     return(
