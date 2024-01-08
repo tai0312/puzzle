@@ -40,6 +40,8 @@ export default function Puzzle({ imageUrl }){
                     cropY: i * image.height / puzzleSize.rows,
                     cropW: image.width / puzzleSize.cols,
                     cropH: image.height / puzzleSize.rows,
+                    prevX: 10+j * PIECE_SIZE,
+                    prevY: 10+i * PIECE_SIZE,
                     });
                 }
             }
