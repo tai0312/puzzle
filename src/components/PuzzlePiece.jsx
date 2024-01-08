@@ -1,5 +1,5 @@
 import { useState,useEffect } from "react";
-import { Layer, Rect,Image, Stage } from "react-konva";
+import { Layer, Rect,Image, Group } from "react-konva";
 
 const PIECE_SIZE = 80;
 
@@ -22,14 +22,16 @@ export default function PuzzlePiece({ image, piece }){
     
     return (
         <>
+        <Group
+        x={position.x}
+        y={position.y}
+        draggable
+        onMouseDown={handleDragEnd}
+        >
         <Image
-            x={position.x}
-            y={position.y}
             image={image}
             width={PIECE_SIZE}
             height={PIECE_SIZE}
-            draggable
-            onMouseDown={handleDragEnd}
             crop={{
                 x: piece.cropX,
                 y: piece.cropY,
@@ -38,15 +40,12 @@ export default function PuzzlePiece({ image, piece }){
             }}
         />
         <Rect
-            x={position.x}
-            y={position.y}
             width={PIECE_SIZE}
             height={PIECE_SIZE}
             stroke="black"
             strokeWidth={1}
-            draggable
-            onMouseDown={handleDragEnd}
         />
+    </Group>
         </>
     );
 }
