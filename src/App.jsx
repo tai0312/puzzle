@@ -29,7 +29,6 @@ const PuzzlePiece = ({ image, piece }) => {
     setPosition({ x: newPosition.x - PIECE_SIZE / 2, y: newPosition.y - PIECE_SIZE / 2 });
   };
   
-
   return (
     <>
       <Image
@@ -39,7 +38,7 @@ const PuzzlePiece = ({ image, piece }) => {
         width={PIECE_SIZE}
         height={PIECE_SIZE}
         draggable
-        onDragEnd={handleDragEnd}
+        onMouseDown={handleDragEnd}
       />
       <Rect
         x={position.x}
@@ -100,8 +99,6 @@ const Puzzle = ({ imageUrl, imageSize }) => {
 export default function App(){
     const [dogPictures,setDogPictures] = useState([]);
     const [catPictures,setCatPictures] = useState([]);
-    const canRef = useRef(null);
-    const imgRef = useRef(null);
     const [img, setImg] = useState(null);
     const [imgSize, setImgSize] = useState({w: 0, h: 0});
 
@@ -126,19 +123,7 @@ export default function App(){
         <>
         <form onSubmit={async (event)=>{
             event.preventDefault();
-            const canField = canRef.current;
-            const canContent = canField.getContext('2d');
-            const imgContent = imgRef.current;
-
-            canField.width = imgContent.width*2;
-            canField.height = imgContent.height*2;
-
-            let imgWidth = 600;
-            let imgHeight=imgWidth*imgContent.height/imgContent.width;
             
-            const myImg = new Image();
-            myImg.src = imgContent.src;
-            canContent.drawImage(myImg,0,0,imgWidth,imgHeight);
         }}>
             <p>
                 <button type="submit" id="shuffle">シャッフル</button>
