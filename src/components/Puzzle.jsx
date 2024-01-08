@@ -13,7 +13,7 @@ export default function Puzzle({ imageUrl, imageSize }){
     useEffect(() => {
         ( () =>{
             const newPieces = [];
-            console.log("Hello");
+            console.log(puzzleSize);
             for (let i = 0; i < puzzleSize.rows; i++) {
                 for (let j = 0; j < puzzleSize.cols; j++) {
                     newPieces.push({

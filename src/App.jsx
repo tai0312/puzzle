@@ -26,7 +26,6 @@ export default function App(){
 
     useEffect (() => {
         (async () =>{ 
-          console.log("baka");
             const newContent = await fetchData();
             setDogPictures(newContent.dog);
             setCatPictures(newContent.cat);
