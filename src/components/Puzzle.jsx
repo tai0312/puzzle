@@ -8,6 +8,7 @@ const PIECE_SIZE = 80;
 export default function Puzzle({ imageUrl }){
     const [image] = useImage(imageUrl);
     const [pieces, setPieces] = useState([]);
+    const [movePiece,setMovePiece] = useState();
     const [puzzleSize, setPuzzleSize] = useState({ cols: 0, rows: 0 });
 
     useEffect(() => {
@@ -59,13 +60,32 @@ export default function Puzzle({ imageUrl }){
     }
     },[pieces]);
 
+    const mouseMove = (e) => {
+        const stage = e.target.getStage();
+        const mousePoint = stage.getPointerPosition();
+        let i = 0;
+        while(i < puzzleSize.cols * puzzleSize.rows && !(pieces[i].x <= mousePoint.x && pieces[i].x+PIECE_SIZE >= mousePoint && pieces[i].y <= mousePoint.y && pieces[i].y+PIECE_SIZE >= mousePoint.y)){
+            i++;
+        }
+        if(i != puzzleSize.cols * puzzleSize.rows){
+            setMovePiece(i);
+        } else {
+            setMovePiece(puzzleSize.cols * puzzleSize.rows);
+        }
+    };
+    const differentPieces = pieces.filter(piece => piece.order !== movePiece);
+    const samePieces = pieces.filter(piece => piece.order === movePiece);
+
 
     return (
         <Stage width={puzzleSize.cols * PIECE_SIZE*2} height={puzzleSize.rows * PIECE_SIZE*1.5}>
-            <Layer>
+            <Layer onMouseDown={mouseMove}>
                 <Rect stroke='black' strokeWidth={3} x={0} y={0} width={puzzleSize.cols * PIECE_SIZE*2} height={puzzleSize.rows * PIECE_SIZE*1.5}/>
                 <Rect stroke='black' strokeWidth={3} x={7} y={7} width={puzzleSize.cols * PIECE_SIZE+5} height={puzzleSize.rows * PIECE_SIZE+5}/>
-                {pieces.length > 0 && pieces.map((piece, index) => (
+                {differentPieces.map((piece, index) => (
+                    <PuzzlePiece key={index} image={image} piece={piece} puzzleSize={puzzleSize} pieces={pieces}/>
+                ))}
+                {samePieces.map((piece, index) => (
                     <PuzzlePiece key={index} image={image} piece={piece} puzzleSize={puzzleSize} pieces={pieces}/>
                 ))}
             </Layer>
