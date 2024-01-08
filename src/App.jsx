@@ -1,9 +1,7 @@
-import { useEffect, useState,useRef } from "react";
+import { useEffect, useState } from "react";
 import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-import { Layer, Rect,Image, Stage ,Path} from "react-konva";
-import useImage from 'use-image';
 import Puzzle from "./components/Puzzle";
 
 async function fetchData(){
@@ -18,8 +16,6 @@ async function fetchData(){
     return data;
 }
 
-
-const PIECE_SIZE = 80;
 
 
 export default function App(){
