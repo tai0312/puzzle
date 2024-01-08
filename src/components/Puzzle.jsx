@@ -37,8 +37,9 @@ export default function Puzzle({ imageUrl, imageSize }){
                     }
                 }
 
-                setPieces(newPieces.sort(() => Math.random() - 0.5));
-                console.log(image);
+                //setPieces(newPieces.sort(() => Math.random() - 0.5));
+                setPieces(newPieces);
+                console.log(image.width);
             }
         })();
     }, [image]);
