@@ -5,9 +5,7 @@ export default function PuzzlePiece({ image, piece }){
     const [position, setPosition] = useState({ x: piece.x, y: piece.y });
 
     useEffect(() => {
-        ( () => {
-            console.log(image);
-        })();
+        console.log(image);
     },[image]);
 
     const handleDragEnd = (e) => {
