@@ -43,9 +43,11 @@ export default function Puzzle({ imageUrl, imageSize }){
         })();
     }, [image]);
     useEffect(() => {
+        if(pieces.length >0){
         ( () => {
             console.log(pieces);
         })();
+    }
     },[pieces]);
 
 
