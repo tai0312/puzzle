@@ -17,7 +17,8 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
     
 
     const handleDragMove = (e) => {
-        const mousePos = e.target.getStage().getPointerPosition();
+        const stage = e.target.getStage();
+        const mousePos = stage.getPointerPosition();
         let newX = mousePos.x - PIECE_SIZE / 2;
         let newY = mousePos.y - PIECE_SIZE / 2;
         if (newX < -PIECE_SIZE / 2){
