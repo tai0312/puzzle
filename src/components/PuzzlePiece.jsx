@@ -22,18 +22,20 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
     const handleDragEnd = (e) => {
         const newPosition = e.target.getStage().getPointerPosition();
         if(0 <= newPosition.x && puzzleSize.cols*PIECE_SIZE >= newPosition.x && 0 <= newPosition.y && puzzleSize.rows * PIECE_SIZE >= newPosition.y ){
-            const position = Math.floor(newPosition.y / 80) * 8 + Math.floor(newPosition.x / 80);
-            if(position != piece.position){
+            const pos = Math.floor(newPosition.y / 80) * 8 + Math.floor(newPosition.x / 80);
+            if(pos != piece.position){
                 let i = 0;
-                while(i < puzzleSize.cols * puzzleSize.rows && position != pieces[i].position){
+                while(i < puzzleSize.cols * puzzleSize.rows && pos != pieces[i].position){
                     i++;
                 }
                 if(i == puzzleSize.cols * puzzleSize.rows){
                     setPosition({ x: 10+Math.floor(newPosition.x / 80)*80, y: 10+Math.floor(newPosition.y / 80)*80});
-                    pieces[piece.order].position = position;
+                    pieces[piece.order].position = pos;
                 } else {
                     if(piece.position < puzzleSize.cols * puzzleSize.rows){
                         setPosition({ x: 10+piece.position % 8 * 80, y: 10+Math.floor(piece.position / 8) * 80});
+                    } else {
+                        setPosition({ x: piece.prevX, y: piece.prevY });
                     }
                 }
             } else {
@@ -42,6 +44,8 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
         } else {
             pieces[piece.order].position = puzzleSize.cols * puzzleSize.rows;
         }
+        pieces[piece.order].prevX = position.x;
+        pieces[piece.order].prevY = position.y;
     };
 
     
