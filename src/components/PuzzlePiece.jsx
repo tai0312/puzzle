@@ -29,15 +29,15 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
                     i++;
                 }
                 if(i == puzzleSize.cols * puzzleSize.rows){
-                    setPosition({ x: Math.floor(newPosition.x / 80)*80, y: Math.floor(newPosition.y / 80)*80});
+                    setPosition({ x: 10+Math.floor(newPosition.x / 80)*80, y: 10+Math.floor(newPosition.y / 80)*80});
                     pieces[piece.order].position = position;
                 } else {
                     if(piece.position < puzzleSize.cols * puzzleSize.rows){
-                        setPosition({ x: piece.position % 8 * 80, y: Math.floor(piece.position / 8) * 80});
+                        setPosition({ x: 10+piece.position % 8 * 80, y: 10+Math.floor(piece.position / 8) * 80});
                     }
                 }
             } else {
-                setPosition({ x: piece.position % 8 * 80, y: Math.floor(piece.position / 8) * 80});
+                setPosition({ x: 10+piece.position % 8 * 80, y: 10+Math.floor(piece.position / 8) * 80});
             }
         } else {
             pieces[piece.order].position = puzzleSize.cols * puzzleSize.rows;
