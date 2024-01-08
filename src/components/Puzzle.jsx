@@ -30,8 +30,8 @@ export default function Puzzle({ imageUrl, imageSize }){
             for (let i = 0; i < puzzleSize.rows; i++) {
                 for (let j = 0; j < puzzleSize.cols; j++) {
                     newPieces.push({
-                    x: 10+j * image.width / puzzleSize.cols,
-                    y: 10+i * image.height / puzzleSize.rows,
+                    x: 10+j * PIECE_SIZE,
+                    y: 10+i * PIECE_SIZE,
                     order: i * puzzleSize.cols + j,
                     originX: 10+j * image.width / puzzleSize.cols,
                     originY: 10+i * image.height / puzzleSize.rows,
