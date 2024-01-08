@@ -50,8 +50,8 @@ export default function Puzzle({ imageUrl, imageSize }){
             <Layer>
                 <Rect stroke='black' strokeWidth={3} x={0} y={0} width={puzzleSize.cols * PIECE_SIZE*2} height={puzzleSize.rows * PIECE_SIZE*1.5}/>
                 <Rect stroke='black' strokeWidth={3} x={10} y={10} width={puzzleSize.cols * PIECE_SIZE} height={puzzleSize.rows * PIECE_SIZE}/>
-                {pieces.map((piece, index) => (
-                    <PuzzlePiece /*key={index}*/ image={image} piece={piece} />
+                {pieces.length > 0 && pieces.map((piece, index) => (
+                    <PuzzlePiece key={index} image={image} piece={piece} />
                 ))}
             </Layer>
         </Stage>
