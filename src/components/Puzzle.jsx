@@ -11,7 +11,7 @@ export default function Puzzle({ imageUrl, imageSize }){
     const [puzzleSize, setPuzzleSize] = useState({ cols: 0, rows: 0 });
 
     useEffect(() => {
-        ( () =>{
+        (async () =>{
             const newPieces = [];
             console.log("Hello");
             for (let i = 0; i < puzzleSize.rows; i++) {
@@ -29,7 +29,7 @@ export default function Puzzle({ imageUrl, imageSize }){
     }, [imageUrl, puzzleSize]);
 
     useEffect(() => {
-        ( () =>{
+        (async () =>{
             if (image) {
                 setPuzzleSize({
                     cols: Math.floor(image.width / PIECE_SIZE),
