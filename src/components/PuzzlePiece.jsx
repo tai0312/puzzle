@@ -41,6 +41,7 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
                         newPos = { x: 10+piece.position % 8 * 80, y: 10+Math.floor(piece.position / 8) * 80};
                     } else {
                         setPosition({ x: piece.prevX, y: piece.prevY });
+                        newPos = { x: piece.prevX, y: piece.prevY };
                     }
                 }
             } else {
@@ -49,7 +50,7 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
             }
         } else {
             pieces[piece.order].position = puzzleSize.cols * puzzleSize.rows;
-            newPos = { x: newPosition.x,y: newPosition.y};
+            newPos = { x: newPosition.x-40,y: newPosition.y-40};
         }
         pieces[piece.order].prevX = newPos.x;
         pieces[piece.order].prevY = newPos.y;
