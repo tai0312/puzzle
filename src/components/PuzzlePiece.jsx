@@ -16,10 +16,10 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
     
     
 
-    const handleMouseDown = (e) => {
+    /*const handleMouseDown = (e) => {
         const mousePos = e.target.getStage().getPointerPosition();
         setPosition({ x: mousePos.x - PIECE_SIZE / 2, y: mousePos.y - PIECE_SIZE / 2 });
-    };
+    };*/
     
     const handleDragStart = (e) => {
         const shapePos = e.target.position();
@@ -80,7 +80,7 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
         x={position.x}
         y={position.y}
         draggable
-        onMouseDown={handleMouseDown}
+        //onMouseDown={handleMouseDown}
         onDragStart={handleDragStart}
         onDragMove={handleDragMove}
         onDragEnd={handleDragEnd}
