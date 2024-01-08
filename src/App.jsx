@@ -4,6 +4,7 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import { Layer, Rect,Image, Stage ,Path} from "react-konva";
 import useImage from 'use-image';
+import Puzzle from "./components/Puzzle";
 
 async function fetchData(){
     const response = await fetch("https://splendorous-malabi-4516db.netlify.app/.netlify/functions/data");
@@ -19,81 +20,6 @@ async function fetchData(){
 
 
 const PIECE_SIZE = 80;
-
-const PuzzlePiece = ({ image, piece }) => {
-  const [position, setPosition] = useState({ x: piece.x, y: piece.y });
-
-  const handleDragEnd = (e) => {
-    const newPosition = e.target.getStage().getPointerPosition();
-    console.log(newPosition.x,newPosition.y);
-    setPosition({ x: newPosition.x - PIECE_SIZE / 2, y: newPosition.y - PIECE_SIZE / 2 });
-  };
-  
-  return (
-    <>
-      <Image
-        x={position.x}
-        y={position.y}
-        image={image}
-        width={PIECE_SIZE}
-        height={PIECE_SIZE}
-        draggable
-        onMouseDown={handleDragEnd}
-      />
-      <Rect
-        x={position.x}
-        y={position.y}
-        width={PIECE_SIZE}
-        height={PIECE_SIZE}
-        stroke="black"
-        strokeWidth={2}
-      />
-    </>
-  );
-};
-
-const Puzzle = ({ imageUrl, imageSize }) => {
-  const [image] = useImage(imageUrl);
-  const [pieces, setPieces] = useState([]);
-  const [puzzleSize, setPuzzleSize] = useState({ cols: 0, rows: 0 });
-
-  useEffect(() => {
-    const newPieces = [];
-
-    for (let i = 0; i < puzzleSize.rows; i++) {
-      for (let j = 0; j < puzzleSize.cols; j++) {
-        newPieces.push({
-          x: 10+j * PIECE_SIZE,
-          y: 10+i * PIECE_SIZE,
-          order: i * puzzleSize.cols + j,
-        });
-      }
-    }
-
-    setPieces(newPieces.sort(() => Math.random() - 0.5));
-  }, [imageUrl, puzzleSize]);
-
-  useEffect(() => {
-    if (image) {
-      setPuzzleSize({
-        cols: Math.floor(image.width / PIECE_SIZE),
-        rows: Math.floor(image.height / PIECE_SIZE),
-      });
-    }
-  }, [image]);
-
-  return (
-    <Stage width={puzzleSize.cols * PIECE_SIZE*2} height={puzzleSize.rows * PIECE_SIZE*1.5}>
-      <Layer>
-        <Rect stroke='black' strokeWidth={3} x={0} y={0} width={puzzleSize.cols * PIECE_SIZE*2} height={puzzleSize.rows * PIECE_SIZE*1.5}/>
-        <Rect stroke='black' strokeWidth={3} x={10} y={10} width={puzzleSize.cols * PIECE_SIZE} height={puzzleSize.rows * PIECE_SIZE}/>
-        {pieces.map((piece, index) => (
-          <PuzzlePiece key={index} image={image} piece={piece} />
-        ))}
-      </Layer>
-    </Stage>
-  );
-};
 
 
 export default function App(){
