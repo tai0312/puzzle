@@ -12,6 +12,13 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
             console.log("hello");
         })();
     },[]);
+    
+    useEffect(() => {
+            ( ()=>{
+                pieces[piece.order].prevX = position.x;
+                pieces[piece.order].prevY = position.y;
+            })();
+        },[position]);
 
     const handleDrag = (e) => {
         const newPosition = e.target.getStage().getPointerPosition();
@@ -44,13 +51,6 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
         } else {
             pieces[piece.order].position = puzzleSize.cols * puzzleSize.rows;
         }
-        useEffect(() => {
-            ( ()=>{
-                pieces[piece.order].prevX = position.x;
-                pieces[piece.order].prevY = position.y;
-            })();
-        },[position]);
-        
     };
 
     
