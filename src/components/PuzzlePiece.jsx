@@ -5,6 +5,7 @@ const PIECE_SIZE = 80;
 
 export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
     const [position, setPosition] = useState({ x: piece.x, y: piece.y });
+    const [offset, setOffset] = useState({ x: 0, y: 0 });
 
     useEffect(() => {
         ( ()=>{
@@ -20,11 +21,22 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
         setPosition({ x: mousePos.x - PIECE_SIZE / 2, y: mousePos.y - PIECE_SIZE / 2 });
     };
     
-    const handleDragMove = (e) => {
-        const newPosition = e.target.position();
-        setPosition(newPosition);
+    const handleDragStart = (e) => {
+        const shapePos = e.target.position();
+        const mousePos = e.target.getStage().getPointerPosition();
+        setOffset({
+            x: mousePos.x - shapePos.x,
+            y: mousePos.y - shapePos.y,
+        });
     };
-
+    
+    const handleDragMove = (e) => {
+        const mousePos = e.target.getStage().getPointerPosition();
+        setPosition({
+            x: mousePos.x - offset.x,
+            y: mousePos.y - offset.y,
+        });
+    };
     const handleDragEnd = (e) => {
         const newPosition = e.target.getStage().getPointerPosition();
         let newPos ={};
@@ -69,6 +81,7 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
         y={position.y}
         draggable
         onMouseDown={handleMouseDown}
+        onDragStart={handleDragStart}
         onDragMove={handleDragMove}
         onDragEnd={handleDragEnd}
         >
