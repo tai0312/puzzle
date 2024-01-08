@@ -13,6 +13,12 @@ export default function Puzzle({ imageUrl, imageSize }){
     useEffect(() => {
         ( () =>{
             const newPieces = [];
+            if (image) {
+                setPuzzleSize({
+                    cols: Math.floor(image.width / PIECE_SIZE),
+                    rows: Math.floor(image.height / PIECE_SIZE),
+                });
+            }
             console.log(puzzleSize);
             for (let i = 0; i < puzzleSize.rows; i++) {
                 for (let j = 0; j < puzzleSize.cols; j++) {
@@ -25,12 +31,7 @@ export default function Puzzle({ imageUrl, imageSize }){
             }
 
             setPieces(newPieces.sort(() => Math.random() - 0.5));
-            if (image) {
-                setPuzzleSize({
-                    cols: Math.floor(image.width / PIECE_SIZE),
-                    rows: Math.floor(image.height / PIECE_SIZE),
-                });
-            }
+            
         })();
     }, []);
 
