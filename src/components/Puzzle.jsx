@@ -12,26 +12,27 @@ export default function Puzzle({ imageUrl, imageSize }){
 
     useEffect(() => {
         ( () =>{
-            const newPieces = [];
-            if (image) {
-                setPuzzleSize({
-                    cols: Math.floor(image.width / PIECE_SIZE),
-                    rows: Math.floor(image.height / PIECE_SIZE),
-                });
-            }
-            console.log(imageUrl);
-            for (let i = 0; i < puzzleSize.rows; i++) {
-                for (let j = 0; j < puzzleSize.cols; j++) {
-                    newPieces.push({
-                    x: 10+j * PIECE_SIZE,
-                    y: 10+i * PIECE_SIZE,
-                    order: i * puzzleSize.cols + j,
+            if(image){
+                const newPieces = [];
+                if (image) {
+                    setPuzzleSize({
+                        cols: Math.floor(image.width / PIECE_SIZE),
+                        rows: Math.floor(image.height / PIECE_SIZE),
                     });
                 }
-            }
+                console.log(imageUrl);
+                for (let i = 0; i < puzzleSize.rows; i++) {
+                    for (let j = 0; j < puzzleSize.cols; j++) {
+                        newPieces.push({
+                        x: 10+j * PIECE_SIZE,
+                        y: 10+i * PIECE_SIZE,
+                        order: i * puzzleSize.cols + j,
+                        });
+                    }
+                }
 
-            setPieces(newPieces.sort(() => Math.random() - 0.5));
-            
+                setPieces(newPieces.sort(() => Math.random() - 0.5));
+            }
         })();
     }, []);
 
