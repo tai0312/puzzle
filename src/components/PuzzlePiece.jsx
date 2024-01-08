@@ -23,7 +23,7 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
 
     const handleDragEnd = (e) => {
         const newPosition = e.target.getStage().getPointerPosition();
-        let newPos;
+        let newPos ={};
         if(0 <= newPosition.x && puzzleSize.cols*PIECE_SIZE >= newPosition.x && 0 <= newPosition.y && puzzleSize.rows * PIECE_SIZE >= newPosition.y ){
             const pos = Math.floor(newPosition.y / 80) * 8 + Math.floor(newPosition.x / 80);
             if(pos != piece.position){
@@ -49,7 +49,7 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
             }
         } else {
             pieces[piece.order].position = puzzleSize.cols * puzzleSize.rows;
-            newPos = { x: position.x,y: position.y};
+            newPos = { x: newPosition.x,y: newPosition.y};
         }
         pieces[piece.order].prevX = newPos.x;
         pieces[piece.order].prevY = newPos.y;
