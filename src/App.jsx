@@ -52,7 +52,7 @@ export default function App(){
                 <button type="submit" id="shuffle">シャッフル</button>
             </p>
 
-            {dogPictures && <Puzzle imageUrl={dogPictures[0]} imageSize={imgSize}/>}
+            {dogPictures.length > 0 && <Puzzle imageUrl={dogPictures[0]} imageSize={imgSize}/>}
             
             <div className="pictrures">
             <ImageList cols={2} gap={30}>
