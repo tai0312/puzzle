@@ -43,7 +43,7 @@ export default function PuzzlePiece({ image, piece }){
             width={PIECE_SIZE}
             height={PIECE_SIZE}
             stroke="black"
-            strokeWidth={2}
+            strokeWidth={1}
         />
         </>
     );
