@@ -9,13 +9,13 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
     useEffect(() => {
         ( ()=>{
             console.log("pieces"+image);
-            console.log(pieces);
+            
         })();
     },[]);
     
     
 
-    const handleDrag = (e) => {
+    const handleDrag = (e) => {console.log(piece);
         const newPosition = e.target.getStage().getPointerPosition();
         setPosition({ x: newPosition.x - PIECE_SIZE / 2, y: newPosition.y - PIECE_SIZE / 2 });
     };
