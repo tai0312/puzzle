@@ -6,7 +6,7 @@ export default function PuzzlePiece({ image, piece }){
 
     useEffect(() => {
         console.log(image);
-    },[image]);
+    },[]);
 
     const handleDragEnd = (e) => {
         const newPosition = e.target.getStage().getPointerPosition();
