@@ -52,7 +52,7 @@ export default function Puzzle({ imageUrl }){
         })();
     },[puzzleSize,image]);
 
-    const mouseMove = (e) => {
+    /*const mouseMove = (e) => {
         const stage = e.target.getStage();
         const mousePoint = stage.getPointerPosition();
         console.log(mousePoint.x,mousePoint.y);
@@ -66,7 +66,7 @@ export default function Puzzle({ imageUrl }){
             setMovePiece(puzzleSize.cols * puzzleSize.rows);
         }
         console.log(i);
-    };
+    };*/
 
     const notMovePieces = pieces.filter(piece => piece.order !== movePiece);
     const movePieces = pieces.filter(piece => piece.order === movePiece);
