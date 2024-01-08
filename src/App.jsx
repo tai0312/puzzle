@@ -51,7 +51,6 @@ export default function App(){
             </p>
 
             {dogPictures.length > 0 && <Puzzle imageUrl={dogPictures[0]} imageSize={imgSize}/>}
-            
             <div className="pictrures">
             <ImageList cols={2} gap={30}>
                 {dogPictures.map((item) => (
@@ -66,8 +65,6 @@ export default function App(){
             </ImageList>
             </div>
         </form>
-        
-        
         </>
     );
 }

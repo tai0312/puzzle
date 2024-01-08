@@ -44,6 +44,8 @@ export default function PuzzlePiece({ image, piece }){
             height={PIECE_SIZE}
             stroke="black"
             strokeWidth={1}
+            draggable
+            onMouseDown={handleDragEnd}
         />
         </>
     );
