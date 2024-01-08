@@ -13,7 +13,7 @@ export default function Puzzle({ imageUrl, imageSize }){
     useEffect(() => {
         ( () =>{
             if(image){
-                console.log(image);
+                console.log(image.width);
                 const newPieces = [];
                 if (image) {
                     setPuzzleSize({
