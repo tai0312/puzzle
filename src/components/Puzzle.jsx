@@ -12,39 +12,42 @@ export default function Puzzle({ imageUrl, imageSize }){
 
     useEffect(() => {
         ( () =>{
-            if(image){
-                const newPieces = [];
-                if (image) {
-                    setPuzzleSize({
-                        cols: 8,
-                        rows: Math.floor(8 * image.height /image.width),
-                    });
-                }
-                
-                for (let i = 0; i < puzzleSize.rows; i++) {
-                    for (let j = 0; j < puzzleSize.cols; j++) {
-                        newPieces.push({
-                        x: 10+j * image.width / puzzleSize.cols,
-                        y: 10+i * image.height / puzzleSize.rows,
-                        order: i * puzzleSize.cols + j,
-                        originX: 10+j * image.width / puzzleSize.cols,
-                        originY: 10+i * image.height / puzzleSize.rows,
-                        cropX: j * image.width / puzzleSize.cols,
-                        cropY: i * image.height / puzzleSize.rows,
-                        cropW: image.width / puzzleSize.cols,
-                        cropH: image.height / puzzleSize.rows,
-                        });
-                    }
-                }
-
+            if(image){   
+                setPuzzleSize({
+                    cols: 8,
+                    rows: Math.floor(8 * image.height /image.width),
+                });
                 //setPieces(newPieces.sort(() => Math.random() - 0.5));
-                setPieces(newPieces);
+                
                 console.log(image.width);
-                console.log(puzzleSize);
-                console.log(newPieces);
             }
         })();
     }, [image]);
+
+    useEffect(() => {
+        ( () => {
+            const newPieces = [];
+            for (let i = 0; i < puzzleSize.rows; i++) {
+                for (let j = 0; j < puzzleSize.cols; j++) {
+                    newPieces.push({
+                    x: 10+j * image.width / puzzleSize.cols,
+                    y: 10+i * image.height / puzzleSize.rows,
+                    order: i * puzzleSize.cols + j,
+                    originX: 10+j * image.width / puzzleSize.cols,
+                    originY: 10+i * image.height / puzzleSize.rows,
+                    cropX: j * image.width / puzzleSize.cols,
+                    cropY: i * image.height / puzzleSize.rows,
+                    cropW: image.width / puzzleSize.cols,
+                    cropH: image.height / puzzleSize.rows,
+                    });
+                }
+            }
+            setPieces(newPieces);
+            console.log(puzzleSize);
+            console.log(newPieces);
+        })();
+    },[puzzleSize,image]);
+
     useEffect(() => {
         if(pieces.length >0){
         ( () => {
