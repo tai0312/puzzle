@@ -39,6 +39,7 @@ export default function App(){
                 };
             };
             loadImage();
+            console.log(imgSize);
         })();
     },[]);
     return(
