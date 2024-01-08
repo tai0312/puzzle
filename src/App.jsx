@@ -24,8 +24,10 @@ const PuzzlePiece = ({ image, piece }) => {
   const [position, setPosition] = useState({ x: piece.x, y: piece.y });
 
   const handleDragEnd = (e) => {
-    setPosition({ x: e.target.x(), y: e.target.y() });
+    const newPosition = e.target.getStage().getPointerPosition();
+    setPosition({ x: newPosition.x - PIECE_SIZE / 2, y: newPosition.y - PIECE_SIZE / 2 });
   };
+  
 
   return (
     <>
