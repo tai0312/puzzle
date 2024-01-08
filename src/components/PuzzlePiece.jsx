@@ -9,6 +9,7 @@ export default function PuzzlePiece({ image, piece }){
     useEffect(() => {
         ( ()=>{
             console.log("pieces"+image);
+            console.log("hello");
         })();
     },[]);
 
