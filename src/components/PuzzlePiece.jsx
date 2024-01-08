@@ -62,8 +62,9 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
         <Group
         x={position.x}
         y={position.y}
-        onMouseDown={handleDrag}
-        onMouseUp={handleDragEnd}
+        draggable
+        onDragMove={handleDrag}
+        onDragEnd={handleDragEnd}
         >
         <Image
             image={image}

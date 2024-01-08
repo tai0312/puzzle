@@ -19,8 +19,7 @@ export default function Puzzle({ imageUrl }){
                     cols: 8,
                     rows: Math.floor(8 * image.height /image.width),
                 });
-                //setPieces(newPieces.sort(() => Math.random() - 0.5));
-                
+                //setPieces(newPieces.sort(() => Math.random() - 0.5));               
                 console.log(image.width,image.height);
             }
         })();
@@ -52,13 +51,6 @@ export default function Puzzle({ imageUrl }){
             console.log(newPieces);
         })();
     },[puzzleSize,image]);
-
-    useEffect(() => {
-        ( () => {
-            
-        })();
-
-    },[movePiece]);
 
     const mouseMove = (e) => {
         const stage = e.target.getStage();
