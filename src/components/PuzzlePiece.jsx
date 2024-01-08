@@ -21,8 +21,8 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
         const shapePos = e.target.position();
         setPosition({ x: mousePos.x - PIECE_SIZE / 2, y: mousePos.y - PIECE_SIZE / 2 });
         setOffset({
-            x: mousePos.x - shapePos.x,
-            y: mousePos.y - shapePos.y,
+            x: 40,
+            y: 40,
         });
     };
     
