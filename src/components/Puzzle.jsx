@@ -72,7 +72,7 @@ export default function Puzzle({ imageUrl }){
         } else {
             setMovePiece(puzzleSize.cols * puzzleSize.rows);
         }
-        console.log(movePiece);
+        console.log(i);
     };
 
     const notMovePieces = pieces.filter(piece => piece.order !== movePiece);
