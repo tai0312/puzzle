@@ -9,7 +9,6 @@ async function fetchData(){
     var data;
     if (response.ok) {
         data = await response.json();
-        console.log(data);
     } else {
         console.error("Error: ", response.statusText);
     }
@@ -39,7 +38,6 @@ export default function App(){
                 };
             };
             loadImage();
-            console.log(dogPictures[0]);
         })();
     },[]);
     return(
