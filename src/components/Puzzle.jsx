@@ -25,11 +25,6 @@ export default function Puzzle({ imageUrl, imageSize }){
             }
 
             setPieces(newPieces.sort(() => Math.random() - 0.5));
-        })();
-    }, []);
-
-    useEffect(() => {
-        (async () =>{
             if (image) {
                 setPuzzleSize({
                     cols: Math.floor(image.width / PIECE_SIZE),
@@ -38,6 +33,7 @@ export default function Puzzle({ imageUrl, imageSize }){
             }
         })();
     }, []);
+
 
     return (
         <Stage width={puzzleSize.cols * PIECE_SIZE*2} height={puzzleSize.rows * PIECE_SIZE*1.5}>
