@@ -37,15 +37,14 @@ export default function PuzzlePiece({ image, piece }){
                 height: piece.cropH,
             }}
         />
-        
-        </>
-    );
-}
-/*<Rect
+        <Rect
             x={position.x}
             y={position.y}
             width={PIECE_SIZE}
             height={PIECE_SIZE}
             stroke="black"
             strokeWidth={1}
-        />*/
+        />
+        </>
+    );
+}
