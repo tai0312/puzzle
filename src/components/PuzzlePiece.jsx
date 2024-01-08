@@ -13,12 +13,7 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
         })();
     },[]);
     
-    useEffect(() => {
-            ( ()=>{
-                pieces[piece.order].prevX = position.x;
-                pieces[piece.order].prevY = position.y;
-            })();
-        },[position]);
+    
 
     const handleDrag = (e) => {
         const newPosition = e.target.getStage().getPointerPosition();
@@ -28,6 +23,7 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
 
     const handleDragEnd = (e) => {
         const newPosition = e.target.getStage().getPointerPosition();
+        let newPos;
         if(0 <= newPosition.x && puzzleSize.cols*PIECE_SIZE >= newPosition.x && 0 <= newPosition.y && puzzleSize.rows * PIECE_SIZE >= newPosition.y ){
             const pos = Math.floor(newPosition.y / 80) * 8 + Math.floor(newPosition.x / 80);
             if(pos != piece.position){
@@ -37,20 +33,27 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
                 }
                 if(i == puzzleSize.cols * puzzleSize.rows){
                     setPosition({ x: 10+Math.floor(newPosition.x / 80)*80, y: 10+Math.floor(newPosition.y / 80)*80});
+                    newPos = { x: 10+Math.floor(newPosition.x / 80)*80, y: 10+Math.floor(newPosition.y / 80)*80};
                     pieces[piece.order].position = pos;
                 } else {
                     if(piece.position < puzzleSize.cols * puzzleSize.rows){
                         setPosition({ x: 10+piece.position % 8 * 80, y: 10+Math.floor(piece.position / 8) * 80});
+                        newPos = { x: 10+piece.position % 8 * 80, y: 10+Math.floor(piece.position / 8) * 80};
                     } else {
                         setPosition({ x: piece.prevX, y: piece.prevY });
                     }
                 }
             } else {
                 setPosition({ x: 10+piece.position % 8 * 80, y: 10+Math.floor(piece.position / 8) * 80});
+                newPos = { x: 10+piece.position % 8 * 80, y: 10+Math.floor(piece.position / 8) * 80};
             }
         } else {
             pieces[piece.order].position = puzzleSize.cols * puzzleSize.rows;
+            newPos = { x: position.x,y: position.y};
         }
+        pieces[piece.order].prevX = newPos.x;
+        pieces[piece.order].prevY = newPos.y;
+
     };
 
     
