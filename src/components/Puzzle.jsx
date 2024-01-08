@@ -61,7 +61,7 @@ export default function Puzzle({ imageUrl, imageSize }){
         <Stage width={puzzleSize.cols * PIECE_SIZE*2} height={puzzleSize.rows * PIECE_SIZE*1.5}>
             <Layer>
                 <Rect stroke='black' strokeWidth={3} x={0} y={0} width={puzzleSize.cols * PIECE_SIZE*2} height={puzzleSize.rows * PIECE_SIZE*1.5}/>
-                <Rect stroke='black' strokeWidth={3} x={7} y={7} width={puzzleSize.cols * PIECE_SIZE+3} height={puzzleSize.rows * PIECE_SIZE+3}/>
+                <Rect stroke='black' strokeWidth={3} x={7} y={7} width={puzzleSize.cols * PIECE_SIZE+5} height={puzzleSize.rows * PIECE_SIZE+5}/>
                 {pieces.length > 0 && pieces.map((piece, index) => (
                     <PuzzlePiece key={index} image={image} piece={piece} />
                 ))}
