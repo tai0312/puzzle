@@ -63,6 +63,7 @@ export default function Puzzle({ imageUrl }){
     const mouseMove = (e) => {
         const stage = e.target.getStage();
         const mousePoint = stage.getPointerPosition();
+        console.log(mousePoint.x,mousePoint.y);
         let i = 0;
         while(i < puzzleSize.cols * puzzleSize.rows && !(pieces[i].x <= mousePoint.x && pieces[i].x+PIECE_SIZE >= mousePoint && pieces[i].y <= mousePoint.y && pieces[i].y+PIECE_SIZE >= mousePoint.y)){
             i++;
