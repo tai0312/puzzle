@@ -1,4 +1,4 @@
-import { useEffect, useState,useRef } from "react";
+import { useEffect, useState } from "react";
 import { Layer, Rect,Image, Stage } from "react-konva";
 import useImage from 'use-image';
 import PuzzlePiece from "./PuzzlePiece";
@@ -11,7 +11,7 @@ export default function Puzzle({ imageUrl, imageSize }){
     const [puzzleSize, setPuzzleSize] = useState({ cols: 0, rows: 0 });
 
     useEffect(() => {
-        (async () =>{
+        ( () =>{
             const newPieces = [];
             console.log("Hello");
             for (let i = 0; i < puzzleSize.rows; i++) {
