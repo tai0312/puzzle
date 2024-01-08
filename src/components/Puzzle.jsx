@@ -55,7 +55,7 @@ export default function Puzzle({ imageUrl }){
 
     useEffect(() => {
         ( () => {
-            console.log(movePiece);
+            
         })();
 
     },[movePiece]);
@@ -72,6 +72,7 @@ export default function Puzzle({ imageUrl }){
         } else {
             setMovePiece(puzzleSize.cols * puzzleSize.rows);
         }
+        console.log(movePiece);
     };
 
     const notMovePieces = pieces.filter(piece => piece.order !== movePiece);
