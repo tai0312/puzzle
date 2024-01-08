@@ -19,7 +19,7 @@ export default function Puzzle({ imageUrl, imageSize }){
                 });
                 //setPieces(newPieces.sort(() => Math.random() - 0.5));
                 
-                console.log(image.width);
+                console.log(image.width,image.height);
             }
         })();
     }, [image]);
