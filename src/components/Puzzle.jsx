@@ -95,7 +95,7 @@ export default function Puzzle({ imageUrl }){
         setPieces(newPieces);
     }
 
-    const handleDragEnd = (e,id) => {
+    const handleMouseUp = (e,id) => {
         const stage = e.target.getStage();
         const newPosition = stage.getPointerPosition();
         let newPos ={};
@@ -187,7 +187,7 @@ export default function Puzzle({ imageUrl }){
                         e.target.moveToTop();
                         handleDragMove(e, i);
                     }}
-                    onDragEnd={(e) => handleDragEnd(e, i)}
+                    onMouseUp={(e) => handleMouseUp(e, i)}
                     >
                     <KonvaImage
                         image={image}
