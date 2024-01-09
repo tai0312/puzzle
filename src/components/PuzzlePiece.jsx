@@ -24,9 +24,7 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
             newY = stage.height() - PIECE_SIZE / 4*3;
         }
         console.log(position.x,position.y);
-        //setPosition({ x: newX, y: newY });
-        position.x = newX;
-        position.y = newY;
+        setPosition({ x: newX, y: newY });
     }
 
     const handleDragEnd = (e) => {
