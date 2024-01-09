@@ -156,7 +156,7 @@ export default function Puzzle({ imageUrl }){
 
     useEffect(() => {
         (() => {
-            if(pieces){
+            if(pieces.length > 0){
             const layer = layerRef.current;
             var movePiece=puzzleSize.cols * puzzleSize.rows;
             /*const rect1 = new Rect({
