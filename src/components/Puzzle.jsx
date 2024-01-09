@@ -1,5 +1,5 @@
 import { useEffect, useState,useRef } from "react";
-import { Layer, Rect,Image, Stage } from "react-konva";
+import { Layer, Rect,Image, Stage,Group } from "react-konva";
 import useImage from 'use-image';
 import PuzzlePiece from "./PuzzlePiece";
 
@@ -158,16 +158,32 @@ export default function Puzzle({ imageUrl }){
         (() => {
             const layer = layerRef.current;
             var movePiece=puzzleSize.cols * puzzleSize.rows;
+            const rect1 = new Rect({
+                stroke: 'black',
+                strokeWidth: 3,
+                x: 0,
+                y: 0,
+                width: puzzleSize.cols * PIECE_SIZE*2,
+                height: puzzleSize.rows * PIECE_SIZE*1.5
+            });
+            const rect2 = new Rect({
+                stroke: 'black',
+                strokeWidth: 3,
+                x: 7,
+                y: 7,
+                width: puzzleSize.cols * PIECE_SIZE+5,
+                height: puzzleSize.rows * PIECE_SIZE+5
+            });
             const groups = []
             for(let i = 0;i < puzzleSize.cols * puzzleSize.rows;i++){
                 const group = new Group({
                     x: pieces[i].x,
                     y: pieces[i].y,
-                    draggable,
+                    draggable: true,
                 });
                 const pieceImage = new Image({
                     image: image,
-                    widt: PIECE_SIZE,
+                    width: PIECE_SIZE,
                     height: PIECE_SIZE,
                 });
                 pieceImage.crop = {
@@ -181,7 +197,7 @@ export default function Puzzle({ imageUrl }){
                     height: PIECE_SIZE,
                     stroke: "black",
                     strokeWidth: 1,
-                })
+                });
                 group.on('dragmove',  (e) => { movePiece = pieces[i].order;return handleDragMove(e,i); });
                 group.on('dragend',  (e) => { return handleDragEnd(e,i); });
                 group.add(pieceImage);
