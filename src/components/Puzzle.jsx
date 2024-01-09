@@ -219,7 +219,7 @@ export default function Puzzle({ imageUrl }){
             }
             layer.draw();
         })();   
-    },[]);
+    },[pieces]);
 
     const notMovePieces = pieces.filter(piece => piece.order !== movePiece);
     const movePieces = pieces.filter(piece => piece.order === movePiece);
