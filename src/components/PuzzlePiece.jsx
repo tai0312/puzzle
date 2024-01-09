@@ -4,7 +4,8 @@ import { Layer, Rect,Image, Group } from "react-konva";
 const PIECE_SIZE = 80;
 
 export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
-    const [position, setPosition] = useState({ x: piece.x, y: piece.y });
+    const [positionX, setPositionX] = useState(piece.x);
+    const [positionY, setPositionY] = useState(piece.y);
 
 
     const handleDragMove = (e) => {
@@ -25,7 +26,8 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
             newY = stage.height() - PIECE_SIZE / 4*3;
         }
         console.log(position.x,position.y);
-        setPosition({ x: newX, y: newY });
+        setPositionX(newX);
+        setPositionY(newY);
     }
 
     const handleDragEnd = (e) => {
@@ -40,20 +42,28 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
                     i++;
                 }
                 if(i == puzzleSize.cols * puzzleSize.rows){
-                    setPosition({ x: 10+Math.floor(newPosition.x / 80)*80, y: 10+Math.floor(newPosition.y / 80)*80});
+                    //setPosition({ x: 10+Math.floor(newPosition.x / 80)*80, y: 10+Math.floor(newPosition.y / 80)*80});
+                    setPositionX(10+Math.floor(newPosition.x / 80)*80);
+                    setPositionY(10+Math.floor(newPosition.y / 80)*80);
                     newPos = { x: 10+Math.floor(newPosition.x / 80)*80, y: 10+Math.floor(newPosition.y / 80)*80};
                     pieces[piece.order].position = pos;
                 } else {
                     if(piece.position < puzzleSize.cols * puzzleSize.rows){
-                        setPosition({ x: 10+piece.position % 8 * 80, y: 10+Math.floor(piece.position / 8) * 80});
+                        //setPosition({ x: 10+piece.position % 8 * 80, y: 10+Math.floor(piece.position / 8) * 80});
+                        setPositionX(10+piece.position % 8 * 80);
+                        setPositionY(10+Math.floor(piece.position / 8) * 80);
                         newPos = { x: 10+piece.position % 8 * 80, y: 10+Math.floor(piece.position / 8) * 80};
                     } else {
-                        setPosition({ x: piece.prevX, y: piece.prevY });
+                        //setPosition({ x: piece.prevX, y: piece.prevY });
+                        setPositionX(piece.prevX);
+                        setPositionY(piece.prevY);
                         newPos = { x: piece.prevX, y: piece.prevY };
                     }
                 }
             } else {
-                setPosition({ x: 10+piece.position % 8 * 80, y: 10+Math.floor(piece.position / 8) * 80});
+                //setPosition({ x: 10+piece.position % 8 * 80, y: 10+Math.floor(piece.position / 8) * 80});
+                setPositionX(10+piece.position % 8 * 80);
+                setPositionY(10+Math.floor(piece.position / 8) * 80);
                 newPos = { x: 10+piece.position % 8 * 80, y: 10+Math.floor(piece.position / 8) * 80};
             }
         } else {
@@ -72,7 +82,9 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
             if (newY > stage.height() - PIECE_SIZE / 2){
                 newY = stage.height() - PIECE_SIZE / 4*3;
             }
-            setPosition({ x: newX, y: newY });
+            //setPosition({ x: newX, y: newY });
+            setPositionX(newX);
+            setPositionY(newY);
             newPos = { x: newX, y: newY };
         }
         pieces[piece.order].prevX = newPos.x;
