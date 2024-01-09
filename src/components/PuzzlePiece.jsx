@@ -12,7 +12,7 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
         const stage = e.target.getStage();
         const mousePos = stage.getPointerPosition();
         console.log("mouse"+mousePos.x,mousePos.y);
-        console.log("piece"+e.position().x,e.position().y);
+        console.log("piece"+e.target.x(),e.target.y());
         let newX = mousePos.x;
         let newY = mousePos.y;
         if (newX < -PIECE_SIZE / 2){
