@@ -1,7 +1,6 @@
 import { useEffect, useState,useRef } from "react";
 import { Layer, Rect,Image as KonvaImage, Stage,Group } from "react-konva";
 import useImage from 'use-image';
-import PuzzlePiece from "./PuzzlePiece";
 
 const PIECE_SIZE = 80;
 
@@ -53,21 +52,6 @@ export default function Puzzle({ imageUrl }){
         })();
     },[puzzleSize,image]);
 
-    /*const mouseMove = (e) => {
-        const stage = e.target.getStage();
-        const mousePoint = stage.getPointerPosition();
-        console.log(mousePoint.x,mousePoint.y);
-        let i = 0;
-        while(i < puzzleSize.cols * puzzleSize.rows && !(pieces[i].prevX <= mousePoint.x && pieces[i].prevX+PIECE_SIZE >= mousePoint.x && pieces[i].prevY <= mousePoint.y && pieces[i].prevY+PIECE_SIZE >= mousePoint.y)){
-            i++;
-        }
-        if(i != puzzleSize.cols * puzzleSize.rows){
-            setMovePiece(i);
-        } else {
-            setMovePiece(puzzleSize.cols * puzzleSize.rows);
-        }
-        console.log(i);
-    };*/
     const handleDragMove = (e,i) => {
         const stage = e.target.getStage();
         const mousePos = stage.getPointerPosition();
@@ -87,9 +71,15 @@ export default function Puzzle({ imageUrl }){
         if (newY > stage.height() - PIECE_SIZE / 2){
             newY = stage.height() - PIECE_SIZE / 4*3;
         }
-        pieces[i].x = newX;
-        pieces[i].y = newY;
-        setPieces(pieces);
+        const newPieces = pieces.map((piece, index) => {
+            if (index === i) {
+                return { ...piece, x: newX, y: newY };
+            } else {
+                return piece;
+            }
+        });
+    
+        setPieces(newPieces);
     }
 
     const handleDragEnd = (e,id) => {
