@@ -33,6 +33,7 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
         if (newY > stage.height() - PIECE_SIZE / 2){
             newY = stage.height() - PIECE_SIZE / 2;
         }
+        console.log(newX,newY);
         setPosition({ x: newX, y: newY });
     }
 
