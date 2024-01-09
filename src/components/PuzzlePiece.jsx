@@ -28,10 +28,10 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
             newY = -PIECE_SIZE / 4;
         }
         if (newX > stage.width() - PIECE_SIZE / 2){
-            newX = stage.width() - PIECE_SIZE / 2*3;
+            newX = stage.width() - PIECE_SIZE / 4*3;
         }
         if (newY > stage.height() - PIECE_SIZE / 2){
-            newY = stage.height() - PIECE_SIZE / 2*3;
+            newY = stage.height() - PIECE_SIZE / 4*3;
         }
         console.log(newX,newY);
         setPosition({ x: newX, y: newY });
@@ -76,10 +76,10 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
                 newY = -PIECE_SIZE / 4;
             }
             if (newX > stage.width() - PIECE_SIZE / 2){
-                newX = stage.width() - PIECE_SIZE / 2*3;
+                newX = stage.width() - PIECE_SIZE / 4*3;
             }
             if (newY > stage.height() - PIECE_SIZE / 2){
-                newY = stage.height() - PIECE_SIZE / 2*3;
+                newY = stage.height() - PIECE_SIZE / 4*3;
             }
             setPosition({ x: newX, y: newY });
         }
