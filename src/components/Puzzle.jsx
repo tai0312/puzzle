@@ -1,5 +1,5 @@
 import { useEffect, useState,useRef } from "react";
-import { Layer, Rect,Image, Stage,Group } from "react-konva";
+import { Layer, Rect,Image as KonvaImage, Stage,Group } from "react-konva";
 import useImage from 'use-image';
 import PuzzlePiece from "./PuzzlePiece";
 
@@ -156,79 +156,69 @@ export default function Puzzle({ imageUrl }){
 
     useEffect(() => {
         (() => {
-            if(pieces.length > 0){
-            const layer = layerRef.current;
-            var movePiece=puzzleSize.cols * puzzleSize.rows;
-            /*const rect1 = new Rect({
-                stroke: 'black',
-                strokeWidth: 3,
-                x: 0,
-                y: 0,
-                width: puzzleSize.cols * PIECE_SIZE*2,
-                height: puzzleSize.rows * PIECE_SIZE*1.5
+            if(pieces.length > 0 && layerRef.current){
+            const layer = layerRef.current.getLayer();
+
+            const groups = pieces.map((piece, i) => {
+                const group = (
+                  <Group
+                    key={i}
+                    x={piece.x}
+                    y={piece.y}
+                    draggable
+                    onDragMove={(e) => {
+                      e.target.moveToTop();
+                      handleDragMove(e, i);
+                    }}
+                    onDragEnd={(e) => handleDragEnd(e, i)}
+                  >
+                    <KonvaImage
+                      image={image}
+                      width={PIECE_SIZE}
+                      height={PIECE_SIZE}
+                      crop={{
+                        x: piece.cropX,
+                        y: piece.cropY,
+                        width: piece.cropW,
+                        height: piece.cropH,
+                      }}
+                    />
+                    <Rect
+                      width={PIECE_SIZE}
+                      height={PIECE_SIZE}
+                      stroke="black"
+                      strokeWidth={1}
+                    />
+                  </Group>
+                );
+                return group;
             });
-            const rect2 = new Rect({
-                stroke: 'black',
-                strokeWidth: 3,
-                x: 7,
-                y: 7,
-                width: puzzleSize.cols * PIECE_SIZE+5,
-                height: puzzleSize.rows * PIECE_SIZE+5
-            });
-            layer.add(rect1,rect2);*/
-            const groups = []
-            for(let i = 0;i < puzzleSize.cols * puzzleSize.rows;i++){
-                const group = new Group({
-                    x: pieces[i].x,
-                    y: pieces[i].y,
-                    draggable: true,
-                });
-                const pieceImage = new Image({
-                    image: image,
-                    width: PIECE_SIZE,
-                    height: PIECE_SIZE,
-                });
-                pieceImage.crop = {
-                    x: pieces[i].cropX,
-                    y: pieces[i].cropY,
-                    width: pieces[i].cropW,
-                    height: pieces[i].cropH,
-                };
-                const rect = new Rect({
-                    width: PIECE_SIZE,
-                    height: PIECE_SIZE,
-                    stroke: "black",
-                    strokeWidth: 1,
-                });
-                group.on('dragmove',  (e) => { movePiece = pieces[i].order;return handleDragMove(e,i); });
-                group.on('dragend',  (e) => { return handleDragEnd(e,i); });
-                group.add(pieceImage);
-                group.add(rect);
-                groups.push(group);
-            }
-            if(movePiece==puzzleSize.cols * puzzleSize.rows){
-                for(let i = 0;i < puzzleSize.cols * puzzleSize.rows;i++){
-                    layer.add(groups[i]);
-                }
-            } else {
-                for(let i = 0;i < puzzleSize.cols * puzzleSize.rows;i++){
-                    if(i != movePiece){
-                        layer.add(groups[i]);
-                    }
-                }
-                layer.add(groups[movePiece]);
-            }
+            layer.add(groups);
             layer.draw();
         }
         })();   
-    },[pieces,handleDragMove]);
+    },[pieces,handleDragMove, handleDragEnd]);
 
-    const notMovePieces = pieces.filter(piece => piece.order !== movePiece);
-    const movePieces = pieces.filter(piece => piece.order === movePiece);
 
     return (
         <Stage width={puzzleSize.cols * PIECE_SIZE*2} height={puzzleSize.rows * PIECE_SIZE*1.5}>
             <Layer ref={layerRef}/*onMouseDown={mouseMove}*//>
+            <Rect
+                stroke='black'
+                strokeWidth={3}
+                x={0}
+                y={0}
+                width={puzzleSize.cols * PIECE_SIZE * 2}
+                height={puzzleSize.rows * PIECE_SIZE * 1.5}
+            />
+            <Rect
+                stroke='black'
+                strokeWidth={3}
+                x={7}
+                y={7}
+                width={puzzleSize.cols * PIECE_SIZE + 5}
+                height={puzzleSize.rows * PIECE_SIZE + 5}
+            />
         </Stage>
     );
 }
