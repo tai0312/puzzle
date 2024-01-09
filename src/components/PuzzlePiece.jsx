@@ -5,16 +5,6 @@ const PIECE_SIZE = 80;
 
 export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
     const [position, setPosition] = useState({ x: piece.x, y: piece.y });
-    const [offset, setOffset] = useState({ x: 0, y: 0 });
-
-    useEffect(() => {
-        ( ()=>{
-            console.log("pieces"+image);
-            
-        })();
-    },[]);
-    
-    
 
     const handleDragMove = (e) => {
         const stage = e.target.getStage();
@@ -87,16 +77,16 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
         pieces[piece.order].prevY = newPos.y;
 
     };
-
     
     return (
         <>
         <Group
-        x={position.x}
-        y={position.y}
         draggable
         onDragMove={handleDragMove}
         onDragEnd={handleDragEnd}
+        x={position.x}
+        y={position.y}
+        
         >
         <Image
             image={image}
