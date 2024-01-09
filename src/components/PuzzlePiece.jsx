@@ -22,16 +22,16 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
         let newX = mousePos.x - PIECE_SIZE * 0.5;
         let newY = mousePos.y - PIECE_SIZE * 0.5;
         if (newX < -PIECE_SIZE / 2){
-            newX = -PIECE_SIZE / 2;
+            newX = -PIECE_SIZE / 4;
         }
         if (newY < -PIECE_SIZE / 2){
-            newY = -PIECE_SIZE / 2;
+            newY = -PIECE_SIZE / 4;
         }
         if (newX > stage.width() - PIECE_SIZE / 2){
-            newX = stage.width() - PIECE_SIZE / 2;
+            newX = stage.width() - PIECE_SIZE / 2*3;
         }
         if (newY > stage.height() - PIECE_SIZE / 2){
-            newY = stage.height() - PIECE_SIZE / 2;
+            newY = stage.height() - PIECE_SIZE / 2*3;
         }
         console.log(newX,newY);
         setPosition({ x: newX, y: newY });
@@ -70,16 +70,16 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
             let newX = newPosition.x - PIECE_SIZE * 0.5;
             let newY = newPosition.y - PIECE_SIZE * 0.5;
             if (newX < -PIECE_SIZE / 2){
-                newX = -PIECE_SIZE / 2;
+                newX = -PIECE_SIZE / 4;
             }
             if (newY < -PIECE_SIZE / 2){
-                newY = -PIECE_SIZE / 2;
+                newY = -PIECE_SIZE / 4;
             }
             if (newX > stage.width() - PIECE_SIZE / 2){
-                newX = stage.width() - PIECE_SIZE / 2;
+                newX = stage.width() - PIECE_SIZE / 2*3;
             }
             if (newY > stage.height() - PIECE_SIZE / 2){
-                newY = stage.height() - PIECE_SIZE / 2;
+                newY = stage.height() - PIECE_SIZE / 2*3;
             }
             setPosition({ x: newX, y: newY });
         }
