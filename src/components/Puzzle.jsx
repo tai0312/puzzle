@@ -73,7 +73,20 @@ export default function Puzzle({ imageUrl }){
         }
         const newPieces = pieces.map((piece, index) => {
             if (index === i) {
-                return { ...piece, x: newX, y: newY };
+                return { 
+                    x: newX,
+                    y: newY,
+                    order: piece.order,
+                    position: piece.position,
+                    originX: piece.originX,
+                    originY: piece.originY,
+                    cropX: piece.cropX,
+                    cropY: piece.cropY,
+                    cropW: piece.cropW,
+                    cropH: piece.cropH,
+                    prevX: piece.prevX,
+                    prevY: piece.prevY,
+                };
             } else {
                 return piece;
             }
@@ -86,6 +99,7 @@ export default function Puzzle({ imageUrl }){
         const stage = e.target.getStage();
         const newPosition = stage.getPointerPosition();
         let newPos ={};
+        let newPieces = pieces;
         if(0 <= newPosition.x && puzzleSize.cols*PIECE_SIZE >= newPosition.x && 0 <= newPosition.y && puzzleSize.rows * PIECE_SIZE >= newPosition.y ){
             const pos = Math.floor(newPosition.y / 80) * 8 + Math.floor(newPosition.x / 80);
             if(pos != pieces[id].position){
@@ -139,9 +153,9 @@ export default function Puzzle({ imageUrl }){
             pieces[id].y = newY;
             newPos = { x: newX, y: newY };
         }
-        pieces[id].prevX = newPos.x;
-        pieces[id].prevY = newPos.y;
-        setPieces(pieces);
+        newPieces[id].prevX = newPos.x;
+        newPieces[id].prevY = newPos.y;
+        setPieces(newPieces);
     };
 
     return (
