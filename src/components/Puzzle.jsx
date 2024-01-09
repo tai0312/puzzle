@@ -212,12 +212,4 @@ export default function Puzzle({ imageUrl }){
         </Stage>
     );
 }
-/*<Rect stroke='black' strokeWidth={3} x={0} y={0} width={puzzleSize.cols * PIECE_SIZE*2} height={puzzleSize.rows * PIECE_SIZE*1.5}/>
-                <Rect stroke='black' strokeWidth={3} x={7} y={7} width={puzzleSize.cols * PIECE_SIZE+5} height={puzzleSize.rows * PIECE_SIZE+5}/>
-                {notMovePieces.map((piece, index) => (
-                    <PuzzlePiece key={index} image={image} piece={piece} puzzleSize={puzzleSize} pieces={pieces}/>
-                ))}
-                {movePieces.map((piece, index) => (
-                    <PuzzlePiece key={index} image={image} piece={piece} puzzleSize={puzzleSize} pieces={pieces}/>
-                ))}*/
-                
+//ピースをはめる処理がうまくいっていない、ピースを離し、違うピースを動かした瞬間にはまる処理がされている感じ、下にピースがあってもはまってしまう
