@@ -156,6 +156,7 @@ export default function Puzzle({ imageUrl }){
 
     useEffect(() => {
         (() => {
+            if(pieces){
             const layer = layerRef.current;
             var movePiece=puzzleSize.cols * puzzleSize.rows;
             /*const rect1 = new Rect({
@@ -218,8 +219,9 @@ export default function Puzzle({ imageUrl }){
                 layer.add(groups[movePiece]);
             }
             layer.draw();
+        }
         })();   
-    },[pieces]);
+    },[pieces,handleDragMove]);
 
     const notMovePieces = pieces.filter(piece => piece.order !== movePiece);
     const movePieces = pieces.filter(piece => piece.order === movePiece);
