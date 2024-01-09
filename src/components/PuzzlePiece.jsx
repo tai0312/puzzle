@@ -72,6 +72,7 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
                 newY = stage.height() - PIECE_SIZE / 4*3;
             }
             setPosition({ x: newX, y: newY });
+            newPos = { x: newX, y: newY };
         }
         pieces[piece.order].prevX = newPos.x;
         pieces[piece.order].prevY = newPos.y;
