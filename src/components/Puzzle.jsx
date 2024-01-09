@@ -188,7 +188,7 @@ export default function Puzzle({ imageUrl }){
                 group.add(rect);
                 groups.push(group);
             }
-            if(movePiece=puzzleSize.cols * puzzleSize.rows){
+            if(movePiece==puzzleSize.cols * puzzleSize.rows){
                 for(let i = 0;i < puzzleSize.cols * puzzleSize.rows;i++){
                     layer.add(groups[i]);
                 }
