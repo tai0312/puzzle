@@ -5,12 +5,20 @@ const PIECE_SIZE = 80;
 
 export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
     const [position, setPosition] = useState({ x: piece.x, y: piece.y });
+    let offsetX = 0;
+    let offsetY = 0;
+
+    const handleDragStart = (e) => {
+        const mousePos = e.target.getStage().getPointerPosition();
+        offsetX = mousePos.x - e.target.x();
+        offsetY = mousePos.y - e.target.y();
+    };
 
     const handleDragMove = (e) => {
         const stage = e.target.getStage();
         const mousePos = stage.getPointerPosition();
-        let newX = mousePos.x - PIECE_SIZE * 0.5;
-        let newY = mousePos.y - PIECE_SIZE * 0.5;
+        let newX = mousePos.x - offsetX;
+        let newY = mousePos.y - offsetY;
         if (newX < -PIECE_SIZE / 2){
             newX = -PIECE_SIZE / 4;
         }
@@ -87,7 +95,6 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
         onDragEnd={handleDragEnd}
         x={position.x}
         y={position.y}
-        
         >
         <Image
             image={image}
