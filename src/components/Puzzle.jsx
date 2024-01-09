@@ -10,7 +10,7 @@ export default function Puzzle({ imageUrl }){
     const [pieces, setPieces] = useState([]);
     const [movePiece,setMovePiece] = useState();
     const [puzzleSize, setPuzzleSize] = useState({ cols: 0, rows: 0 });
-    const layerRef = useRef<Layer>(null);
+    const layerRef = useRef(null);
 
     useEffect(() => {
         ( () =>{
