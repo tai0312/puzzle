@@ -158,7 +158,7 @@ export default function Puzzle({ imageUrl }){
         (() => {
             const layer = layerRef.current;
             var movePiece=puzzleSize.cols * puzzleSize.rows;
-            const rect1 = new Rect({
+            /*const rect1 = new Rect({
                 stroke: 'black',
                 strokeWidth: 3,
                 x: 0,
@@ -174,7 +174,7 @@ export default function Puzzle({ imageUrl }){
                 width: puzzleSize.cols * PIECE_SIZE+5,
                 height: puzzleSize.rows * PIECE_SIZE+5
             });
-            layer.add(rect1,rect2);
+            layer.add(rect1,rect2);*/
             const groups = []
             for(let i = 0;i < puzzleSize.cols * puzzleSize.rows;i++){
                 const group = new Group({
