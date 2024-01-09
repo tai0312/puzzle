@@ -25,7 +25,7 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
         if (newY > stage.height() - PIECE_SIZE / 2){
             newY = stage.height() - PIECE_SIZE / 4*3;
         }
-        console.log(position.x,position.y);
+        console.log(positionX,positionY);
         setPositionX(newX);
         setPositionY(newY);
     }
@@ -98,8 +98,8 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
         draggable
         onDragMove={handleDragMove}
         onDragEnd={handleDragEnd}
-        x={position.x}
-        y={position.y}
+        x={positionX}
+        y={positionY}
         >
         <Image
             image={image}
