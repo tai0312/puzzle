@@ -19,8 +19,8 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
     const handleDragMove = (e) => {
         const stage = e.target.getStage();
         const mousePos = stage.getPointerPosition();
-        let newX = mousePos.x - PIECE_SIZE * 0.75;
-        let newY = mousePos.y - PIECE_SIZE * 0.75;
+        let newX = mousePos.x - PIECE_SIZE * 0.5;
+        let newY = mousePos.y - PIECE_SIZE * 0.5;
         if (newX < -PIECE_SIZE / 2){
             newX = -PIECE_SIZE / 2;
         }
@@ -38,7 +38,8 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
     }
 
     const handleDragEnd = (e) => {
-        const newPosition = e.target.getStage().getPointerPosition();
+        const stage = e.target.getStage();
+        const newPosition = stage.getPointerPosition();
         let newPos ={};
         if(0 <= newPosition.x && puzzleSize.cols*PIECE_SIZE >= newPosition.x && 0 <= newPosition.y && puzzleSize.rows * PIECE_SIZE >= newPosition.y ){
             const pos = Math.floor(newPosition.y / 80) * 8 + Math.floor(newPosition.x / 80);
@@ -66,7 +67,21 @@ export default function PuzzlePiece({ image, piece,puzzleSize,pieces }){
             }
         } else {
             pieces[piece.order].position = puzzleSize.cols * puzzleSize.rows;
-            newPos = { x: newPosition.x-40,y: newPosition.y-40};
+            let newX = newPosition.x - PIECE_SIZE * 0.5;
+            let newY = newPosition.y - PIECE_SIZE * 0.5;
+            if (newX < -PIECE_SIZE / 2){
+                newX = -PIECE_SIZE / 2;
+            }
+            if (newY < -PIECE_SIZE / 2){
+                newY = -PIECE_SIZE / 2;
+            }
+            if (newX > stage.width() - PIECE_SIZE / 2){
+                newX = stage.width() - PIECE_SIZE / 2;
+            }
+            if (newY > stage.height() - PIECE_SIZE / 2){
+                newY = stage.height() - PIECE_SIZE / 2;
+            }
+            setPosition({ x: newX, y: newY });
         }
         pieces[piece.order].prevX = newPos.x;
         pieces[piece.order].prevY = newPos.y;
