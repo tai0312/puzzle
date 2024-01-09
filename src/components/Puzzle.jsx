@@ -154,52 +154,6 @@ export default function Puzzle({ imageUrl }){
         setPieces(pieces);
     };
 
-    useEffect(() => {
-        (() => {
-            if(pieces.length > 0 && layerRef.current){
-            const layer = layerRef.current.getLayer();
-
-            const groups = pieces.map((piece, i) => {
-                const group = (
-                  <Group
-                    key={i}
-                    x={piece.x}
-                    y={piece.y}
-                    draggable
-                    onDragMove={(e) => {
-                      e.target.moveToTop();
-                      handleDragMove(e, i);
-                    }}
-                    onDragEnd={(e) => handleDragEnd(e, i)}
-                  >
-                    <KonvaImage
-                      image={image}
-                      width={PIECE_SIZE}
-                      height={PIECE_SIZE}
-                      crop={{
-                        x: piece.cropX,
-                        y: piece.cropY,
-                        width: piece.cropW,
-                        height: piece.cropH,
-                      }}
-                    />
-                    <Rect
-                      width={PIECE_SIZE}
-                      height={PIECE_SIZE}
-                      stroke="black"
-                      strokeWidth={1}
-                    />
-                  </Group>
-                );
-                return group;
-            });
-            layer.add(groups);
-            layer.draw();
-        }
-        })();   
-    },[pieces,handleDragMove, handleDragEnd]);
-
-
     return (
         <Stage width={puzzleSize.cols * PIECE_SIZE*2} height={puzzleSize.rows * PIECE_SIZE*1.5}>
             <Layer ref={layerRef}>
@@ -219,6 +173,37 @@ export default function Puzzle({ imageUrl }){
                     width={puzzleSize.cols * PIECE_SIZE + 5}
                     height={puzzleSize.rows * PIECE_SIZE + 5}
                 />
+                {pieces.map((piece, i) => (
+                    <Group
+                    key={i}
+                    x={piece.x}
+                    y={piece.y}
+                    draggable
+                    onDragMove={(e) => {
+                        e.target.moveToTop();
+                        handleDragMove(e, i);
+                    }}
+                    onDragEnd={(e) => handleDragEnd(e, i)}
+                    >
+                    <KonvaImage
+                        image={image}
+                        width={PIECE_SIZE}
+                        height={PIECE_SIZE}
+                        crop={{
+                        x: piece.cropX,
+                        y: piece.cropY,
+                        width: piece.cropW,
+                        height: piece.cropH,
+                        }}
+                    />
+                    <Rect
+                        width={PIECE_SIZE}
+                        height={PIECE_SIZE}
+                        stroke="black"
+                        strokeWidth={1}
+                    />
+                    </Group>
+                ))}
             </Layer>
         </Stage>
     );
