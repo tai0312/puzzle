@@ -10,11 +10,11 @@ export default function ButtonAppBar() {
     <div>
       <AppBar position="static">
         <Toolbar>
-          <div>
-            <Typography style={{textAlign:"center"}}>
-              News
+          
+            <Typography>
+              <div style={{textAlign:"center"}}>News</div>
             </Typography>
-          </div>
+          
         </Toolbar>
       </AppBar>
     </div>
