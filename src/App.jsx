@@ -47,7 +47,7 @@ export default function App(){
                 <ImageListItem key={item}>
                     <Card sx={{ width: 540 }}>
                         <CardMedia
-                            sx={{ maxHeight: 540 }}
+                            sx={{ height: 540 }}
                             image={item}
                             title={"dog"+{i}}
                         />
