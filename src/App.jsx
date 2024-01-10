@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
 import Puzzle from "./components/Puzzle";
 import Header from './components/Header';
 
@@ -41,13 +43,15 @@ export default function App(){
             {dogPictures.length > 0 && <Puzzle imageUrl={dogPictures[0]}/>}
             <div className="pictrures">
             <ImageList cols={2} gap={30}>
-                {dogPictures.map((item) => (
+                {dogPictures.map((item,i) => (
                 <ImageListItem key={item}>
-                    <img
-                    src={`${item}?w=164&h=164&fit=crop&auto=format`}
-                    srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                    loading="lazy"
-                    />
+                    <Card sx={{ maxWidth: 540 }}>
+                        <CardMedia
+                            sx={{ maxHeight: 540 }}
+                            image={item}
+                            title={"dog"+{i}}
+                        />
+                    </Card>        
                 </ImageListItem>
                 ))}
             </ImageList>
@@ -56,3 +60,8 @@ export default function App(){
         </>
     );
 }
+/*<img
+                    src={`${item}?w=164&h=164&fit=crop&auto=format`}
+                    srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                    loading="lazy"
+                    />*/
