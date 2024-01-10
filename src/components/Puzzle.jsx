@@ -1,6 +1,7 @@
 import { useEffect, useState,useRef } from "react";
 import { Layer, Rect,Image as KonvaImage, Stage,Group } from "react-konva";
 import useImage from 'use-image';
+import Button from '@mui/material/Button';
 
 const PIECE_SIZE = 80;
 
@@ -11,6 +12,11 @@ export default function Puzzle({ imageUrl }){
     const [puzzleSize, setPuzzleSize] = useState({ cols: 0, rows: 0 });
     const layerRef = useRef(null);
 
+    const handleChange = ()=>{
+        const newPieces = pieces; 
+        setPieces(newPieces.sort(() => Math.random() - 0.5));
+    };
+
     useEffect(() => {
         ( () =>{
             if(image){
@@ -18,8 +24,7 @@ export default function Puzzle({ imageUrl }){
                 setPuzzleSize({
                     cols: 8,
                     rows: Math.floor(8 * image.height /image.width),
-                });
-                //setPieces(newPieces.sort(() => Math.random() - 0.5));               
+                });             
                 console.log(image.width,image.height);
             }
         })();
@@ -27,6 +32,7 @@ export default function Puzzle({ imageUrl }){
 
     useEffect(() => {
         ( () => {
+            if(image){
             const newPieces = [];
             for (let i = 0; i < puzzleSize.rows; i++) {
                 for (let j = 0; j < puzzleSize.cols; j++) {
@@ -47,8 +53,8 @@ export default function Puzzle({ imageUrl }){
                 }
             }
             setPieces(newPieces);
-            console.log(puzzleSize);
             console.log(newPieces);
+        }
         })();
     },[puzzleSize,image]);
 
@@ -159,6 +165,10 @@ export default function Puzzle({ imageUrl }){
     };
 
     return (
+        <>
+        <div style={{marginBottom:5}}>
+            <Button variant="outlined" size="large" onChange={handleChange}>Shuffle</Button>
+        </div>
         <Stage width={puzzleSize.cols * PIECE_SIZE*2} height={puzzleSize.rows * PIECE_SIZE*1.3}>
             <Layer ref={layerRef}>
                 <Rect
@@ -210,6 +220,7 @@ export default function Puzzle({ imageUrl }){
                 ))}
             </Layer>
         </Stage>
+        </>
     );
 }
 //ピースをはめる処理がうまくいっていない、ピースを離し、違うピースを動かした瞬間にはまる処理がされている感じ、下にピースがあってもはまってしまう

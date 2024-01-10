@@ -27,9 +27,11 @@ async function fetchData(){
 
 
 export default function App(){
+    const [puzzleContent,setPuzzleContent] = useState({dogcat:"dog", id:0});
+    const [listContents,setListContents] = useState([]);
     const [dogPictures,setDogPictures] = useState([]);
     const [catPictures,setCatPictures] = useState([]);
-    const [value, setValue] = useState("dog")
+    const [value, setValue] = useState("dog");
     const [windowSize, setWindowSize] = useState({
         width: window.innerWidth,
         height: window.innerHeight,
@@ -37,7 +39,10 @@ export default function App(){
 
     const handleChange = (e) => {
         setValue(e.target.value);
-    }
+    };
+    const handleChangeList = (e) => {
+        setPuzzleContent({dogcat:e.target.name,id:e.target.value});
+    };
     
     useEffect(() => {
         const handleWindowResize = () => {
@@ -56,8 +61,16 @@ export default function App(){
             const newContent = await fetchData();
             setDogPictures(newContent.dog);
             setCatPictures(newContent.cat);
+            setListContents(newContent.dog);
         })();
     },[]);
+    useEffect(() => {
+        if(value == "dog"){
+            setListContents(dogPictures);
+        } else {
+            setListContents(catPictures);
+        }
+    },[value]);
     return(
         <>
         <div className="header">
@@ -67,10 +80,7 @@ export default function App(){
             event.preventDefault();
             
         }}>
-            <div style={{marginBottom:5}}>
-                <Button variant="outlined" size="large">Shuffle</Button>
-            </div>
-            {dogPictures.length > 0 && <Puzzle imageUrl={dogPictures[0]}/>}
+            {listContents.length > 0 && <Puzzle imageUrl={puzzleContent.dogcat == "dog" ? dogPictures[puzzleContent.id] : catPictures[puzzleContent.id]}/>}
             <Grid container alignItems='center' justifyContent='center'>
                 <Grid item>
                     <FormControl sx={{ width: "100%" }}>
@@ -113,13 +123,13 @@ export default function App(){
                 </Grid>
             </Grid>
             <div className="pictrures" style={{marginLeft: 25,marginRight: 25,marginTop:10}}>
-                <RadioGroup defaultValue={0} name="picture" /*onChange={handleChange}*/>
+                <RadioGroup defaultValue={value+0} name="picture" onChange={handleChangeList}>
                     <ImageList cols={3} gap={30} style={{marginLeft: 20,marginRight: 20,marginTop:10,padding:5}}>
-                        {dogPictures.map((item,i) => (
+                        {listContents.map((item,i) => (
                             <Radio
                             key={i}
                             value={i}
-                            name="picture"
+                            name={value}
                             icon={
                             <ImageListItem key={item}>
                                 <Card sx={{ width: (windowSize.width-100-30*2)/3,minWidth: 200 }}>
