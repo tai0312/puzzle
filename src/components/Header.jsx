@@ -4,25 +4,17 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
-const DivRoot = styled('div')(() => ({
-  flexGrow: 1,
-}));
-
-const DialogTypography = styled(Typography)(() => ({
-  textAlign: center,
-  flexGrow: 1,
-}));
 
 export default function ButtonAppBar() {
   return (
-    <DivRoot>
+    <div>
       <AppBar position="static">
         <Toolbar>
-          <DialogTypography variant="h6">
+          <Typography variant="h6" style={{textAlign:"center"}}>
             News
-          </DialogTypography>
+          </Typography>
         </Toolbar>
       </AppBar>
-    </DivRoot>
+    </div>
   );
 }
