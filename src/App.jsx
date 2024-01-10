@@ -69,7 +69,7 @@ export default function App(){
                             name="picture"
                             icon={
                             <ImageListItem key={item}>
-                                <Card sx={{ minWidth: (windowSize.width-100-30*2)/3 }}>
+                                <Card sx={{ width: (windowSize.width-100-30*2)/3,minWidth: 200 }}>
                                     <CardMedia
                                         sx={{ height: 200 }}
                                         image={item}
@@ -80,7 +80,7 @@ export default function App(){
                             }
                             checkedIcon={
                                 <ImageListItem key={item} sx={{border: 4}}>
-                                    <Card sx={{ minWidth: (windowSize.width-100-30*2)/3 }}>
+                                    <Card sx={{ width: (windowSize.width-100-30*2)/3,minWidth: 200 }}>
                                         <CardMedia
                                             sx={{ height: 200 }}
                                             image={item}
