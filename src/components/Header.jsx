@@ -8,18 +8,18 @@ const DivRoot = styled('div')(() => ({
   flexGrow: 1,
 }));
 
-/*const DialogTypography = styled(Typography)(() => ({
+const DialogTypography = styled(Typography)(() => ({
   flexGrow: 1,
-}));*/
+}));
 
 export default function ButtonAppBar() {
   return (
     <DivRoot>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6">
+          <DialogTypography variant="h6">
             News
-          </Typography>
+          </DialogTypography>
         </Toolbar>
       </AppBar>
     </DivRoot>
