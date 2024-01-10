@@ -73,7 +73,7 @@ export default function App(){
                                     </Card>
                                 </ImageListItem>
                             }
-                            sx={{margin: 0, padding: 0, border: 0}}
+                            sx={{margin: 0, padding: 0, border: 0,minWidth: 200,height: 200}}
                             />
                         ))}
                     </ImageList>
