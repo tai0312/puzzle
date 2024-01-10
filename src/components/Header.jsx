@@ -9,6 +9,7 @@ const DivRoot = styled('div')(() => ({
 }));
 
 const DialogTypography = styled(Typography)(() => ({
+  textAlign: center,
   flexGrow: 1,
 }));
 
