@@ -53,7 +53,7 @@ export default function App(){
                             name="picture"
                             icon={
                             <ImageListItem key={item}>
-                                <Card sx={{ minWidth: (window.innerWidth-100-gap*2)/3 }}>
+                                <Card sx={{ minWidth: (window.innerWidth-100-30*2)/3 }}>
                                     <CardMedia
                                         sx={{ height: 200 }}
                                         image={item}
