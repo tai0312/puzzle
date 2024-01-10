@@ -59,8 +59,8 @@ export default function App(){
             
         }}>
             {dogPictures.length > 0 && <Puzzle imageUrl={dogPictures[0]}/>}
-            <div className="pictrures" style={{marginLeft: 50,marginRight: 50,marginTop:20}}>
-                <RadioGroup name="picture" /*onChange={handleChange}*/>
+            <div className="pictrures" style={{marginLeft: 25,marginRight: 25,marginTop:10}}>
+                <RadioGroup name="picture" style={{marginLeft: 25,marginRight: 25,marginTop:10}}/*onChange={handleChange}*/>
                     <ImageList cols={3} gap={30}>
                         {dogPictures.map((item,i) => (
                             <Radio
