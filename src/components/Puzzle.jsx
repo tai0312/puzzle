@@ -159,7 +159,7 @@ export default function Puzzle({ imageUrl }){
     };
 
     return (
-        <Stage width={puzzleSize.cols * PIECE_SIZE*2} height={puzzleSize.rows * PIECE_SIZE*1.5}>
+        <Stage width={puzzleSize.cols * PIECE_SIZE*2} height={puzzleSize.rows * PIECE_SIZE*1.3}>
             <Layer ref={layerRef}>
                 <Rect
                     stroke='black'
@@ -167,15 +167,15 @@ export default function Puzzle({ imageUrl }){
                     x={0}
                     y={0}
                     width={puzzleSize.cols * PIECE_SIZE * 2}
-                    height={puzzleSize.rows * PIECE_SIZE * 1.5}
+                    height={puzzleSize.rows * PIECE_SIZE * 1.3}
                 />
                 <Rect
                     stroke='black'
                     strokeWidth={3}
-                    x={7}
-                    y={7}
-                    width={puzzleSize.cols * PIECE_SIZE + 5}
-                    height={puzzleSize.rows * PIECE_SIZE + 5}
+                    x={8}
+                    y={8}
+                    width={puzzleSize.cols * PIECE_SIZE + 4}
+                    height={puzzleSize.rows * PIECE_SIZE + 4}
                 />
                 {pieces.map((piece, i) => (
                     <Group
