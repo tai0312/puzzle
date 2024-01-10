@@ -38,10 +38,6 @@ export default function App(){
             event.preventDefault();
             
         }}>
-            <p>
-                <button type="submit" id="shuffle">シャッフル</button>
-            </p>
-
             {dogPictures.length > 0 && <Puzzle imageUrl={dogPictures[0]}/>}
             <div className="pictrures">
             <ImageList cols={2} gap={30}>
