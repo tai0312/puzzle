@@ -43,7 +43,7 @@ export default function App(){
             
         }}>
             {dogPictures.length > 0 && <Puzzle imageUrl={dogPictures[0]}/>}
-            <div className="pictrures" style={{marginLeft: 50}}>
+            <div className="pictrures" style={{marginLeft: 50,marginRight: 50}}>
                 <RadioGroup name="picture" /*onChange={handleChange}*/>
                     <ImageList cols={3} gap={30}>
                         {dogPictures.map((item,i) => (
@@ -53,7 +53,7 @@ export default function App(){
                             name="picture"
                             icon={
                             <ImageListItem key={item}>
-                                <Card sx={{ minWidth: 200 }}>
+                                <Card sx={{ minWidth: (window.innerWidth-100-gap*2)/3 }}>
                                     <CardMedia
                                         sx={{ height: 200 }}
                                         image={item}
@@ -64,7 +64,7 @@ export default function App(){
                             }
                             checkedIcon={
                                 <ImageListItem key={item} sx={{border: 4}}>
-                                    <Card sx={{ minWidth: 200 }}>
+                                    <Card sx={{ minWidth: (window.innerWidth-100-gap*2)/3 }}>
                                         <CardMedia
                                             sx={{ height: 200 }}
                                             image={item}
