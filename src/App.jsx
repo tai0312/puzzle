@@ -71,7 +71,7 @@ export default function App(){
                             <ImageListItem key={item}>
                                 <Card sx={{ width: (windowSize.width-100-30*2)/3,minWidth: 200 }}>
                                     <CardMedia
-                                        sx={{ height: 200 }}
+                                        sx={{ height: 250 }}
                                         image={item}
                                         title={"dog"+{i}}
                                     />
@@ -82,14 +82,14 @@ export default function App(){
                                 <ImageListItem key={item} sx={{border: 4}}>
                                     <Card sx={{ width: (windowSize.width-100-30*2)/3,minWidth: 200 }}>
                                         <CardMedia
-                                            sx={{ height: 200 }}
+                                            sx={{ height: 250 }}
                                             image={item}
                                             title={"dog"+{i}}
                                         />
                                     </Card>
                                 </ImageListItem>
                             }
-                            sx={{margin: 0, padding: 0, border: 0,minWidth: 200,height: 200}}
+                            sx={{margin: 0, padding: 0, border: 0,minWidth: 200,height: 250}}
                             />
                         ))}
                     </ImageList>
