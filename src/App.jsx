@@ -41,8 +41,8 @@ export default function App(){
             
         }}>
             {dogPictures.length > 0 && <Puzzle imageUrl={dogPictures[0]}/>}
-            <div className="pictrures">
-            <ImageList cols={2} gap={30}>
+            <div className="pictrures" style={{marginLeft: 50}}>
+            <ImageList cols={3} gap={30}>
                 {dogPictures.map((item,i) => (
                 <ImageListItem key={item}>
                     <Card sx={{ width: 200 }}>
