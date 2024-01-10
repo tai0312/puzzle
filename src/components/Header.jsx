@@ -11,7 +11,7 @@ export default function ButtonAppBar() {
       <AppBar position="static">
         <Toolbar>
           <div style={{textAlign:"center"}}>
-            <Typography variant="h6" >
+            <Typography>
               News
             </Typography>
           </div>
