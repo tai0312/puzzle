@@ -45,9 +45,9 @@ export default function App(){
             <ImageList cols={2} gap={30}>
                 {dogPictures.map((item,i) => (
                 <ImageListItem key={item}>
-                    <Card sx={{ width: 540 }}>
+                    <Card sx={{ width: 200 }}>
                         <CardMedia
-                            sx={{ height: 540 }}
+                            sx={{ height: 200 }}
                             image={item}
                             title={"dog"+{i}}
                         />
