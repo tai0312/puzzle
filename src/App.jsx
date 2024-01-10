@@ -48,6 +48,7 @@ export default function App(){
                     <Radio
                     key={i}
                     value={i}
+                    name="picture"
                     icon={
                     <ImageListItem key={item}>
                         <Card sx={{ width: 200 }}>
