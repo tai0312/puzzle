@@ -79,10 +79,10 @@ export default function App(){
                             </ImageListItem>
                             }
                             checkedIcon={
-                                <ImageListItem key={item} sx={{border: 4}}>
-                                    <Card sx={{ width: (windowSize.width-100-30*2)/3,minWidth: 200 }}>
+                                <ImageListItem key={item} sx={{border: 3}}>
+                                    <Card sx={{ width: (windowSize.width-100-30*2)/3,minWidth: 200 }-6}>
                                         <CardMedia
-                                            sx={{ height: 250 }}
+                                            sx={{ height: 250-6 }}
                                             image={item}
                                             title={"dog"+{i}}
                                         />
