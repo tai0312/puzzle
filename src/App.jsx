@@ -3,6 +3,7 @@ import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import Puzzle from "./components/Puzzle";
+import Header from './components/Header';
 
 async function fetchData(){
     const response = await fetch("https://splendorous-malabi-4516db.netlify.app/.netlify/functions/data");
@@ -30,6 +31,9 @@ export default function App(){
     },[]);
     return(
         <>
+        <div className="header">
+            <Header />
+        </div>
         <form onSubmit={async (event)=>{
             event.preventDefault();
             
