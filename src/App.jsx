@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+import Radio from '@mui/material/Radio'
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Puzzle from "./components/Puzzle";
@@ -44,15 +45,21 @@ export default function App(){
             <div className="pictrures" style={{marginLeft: 50}}>
             <ImageList cols={3} gap={30}>
                 {dogPictures.map((item,i) => (
-                <ImageListItem key={item}>
-                    <Card sx={{ width: 200 }}>
-                        <CardMedia
-                            sx={{ height: 200 }}
-                            image={item}
-                            title={"dog"+{i}}
-                        />
-                    </Card>        
-                </ImageListItem>
+                    <Radio
+                    key={i}
+                    value={i}
+                    icon={
+                    <ImageListItem key={item}>
+                        <Card sx={{ width: 200 }}>
+                            <CardMedia
+                                sx={{ height: 200 }}
+                                image={item}
+                                title={"dog"+{i}}
+                            />
+                        </Card>        
+                    </ImageListItem>
+                    }
+                    />
                 ))}
             </ImageList>
             </div>
