@@ -3,6 +3,7 @@ import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import Radio from '@mui/material/Radio'
+import RadioGroup from '@mui/material/RadioGroup'
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Puzzle from "./components/Puzzle";
@@ -43,38 +44,40 @@ export default function App(){
         }}>
             {dogPictures.length > 0 && <Puzzle imageUrl={dogPictures[0]}/>}
             <div className="pictrures" style={{marginLeft: 50}}>
-            <ImageList cols={3} gap={30}>
-                {dogPictures.map((item,i) => (
-                    <Radio
-                    key={i}
-                    value={i}
-                    name="picture"
-                    icon={
-                    <ImageListItem key={item}>
-                        <Card sx={{ width: 200 }}>
-                            <CardMedia
-                                sx={{ height: 200 }}
-                                image={item}
-                                title={"dog"+{i}}
+                <RadioGroup name="picture" value={value} /*onChange={handleChange}*/>
+                    <ImageList cols={3} gap={30}>
+                        {dogPictures.map((item,i) => (
+                            <Radio
+                            key={i}
+                            value={i}
+                            name="picture"
+                            icon={
+                            <ImageListItem key={item}>
+                                <Card sx={{ width: 200 }}>
+                                    <CardMedia
+                                        sx={{ height: 200 }}
+                                        image={item}
+                                        title={"dog"+{i}}
+                                    />
+                                </Card>        
+                            </ImageListItem>
+                            }
+                            checkedIcon={
+                                <ImageListItem key={item} sx={{border: 4}}>
+                                    <Card sx={{ width: 200 }}>
+                                        <CardMedia
+                                            sx={{ height: 200 }}
+                                            image={item}
+                                            title={"dog"+{i}}
+                                        />
+                                    </Card>
+                                </ImageListItem>
+                            }
+                            sx={{margin: 0, padding: 0, border: 0}}
                             />
-                        </Card>        
-                    </ImageListItem>
-                    }
-                    checkedIcon={
-                        <ImageListItem key={item} sx={{border: 4}}>
-                            <Card sx={{ width: 200 }}>
-                                <CardMedia
-                                    sx={{ height: 200 }}
-                                    image={item}
-                                    title={"dog"+{i}}
-                                />
-                            </Card>
-                        </ImageListItem>
-                      }
-                      sx={{margin: 0, padding: 0, border: 0}}
-                    />
-                ))}
-            </ImageList>
+                        ))}
+                    </ImageList>
+                </RadioGroup>
             </div>
         </form>
         </>
