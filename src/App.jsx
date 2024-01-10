@@ -25,6 +25,22 @@ async function fetchData(){
 export default function App(){
     const [dogPictures,setDogPictures] = useState([]);
     const [catPictures,setCatPictures] = useState([]);
+    const [windowSize, setWindowSize] = useState({
+        width: window.innerWidth,
+        height: window.innerHeight,
+    });
+    
+    useEffect(() => {
+        const handleWindowResize = () => {
+          setWindowSize({width: window.innerWidth, height: window.innerHeight});
+        };
+    
+        window.addEventListener('resize', handleWindowResize);
+    
+        return () => {
+          window.removeEventListener('resize', handleWindowResize);
+        };
+    }, []);
 
     useEffect (() => {
         (async () =>{ 
@@ -53,7 +69,7 @@ export default function App(){
                             name="picture"
                             icon={
                             <ImageListItem key={item}>
-                                <Card sx={{ minWidth: (window.innerWidth-100-30*2)/3 }}>
+                                <Card sx={{ minWidth: (windowSize.width-100-30*2)/3 }}>
                                     <CardMedia
                                         sx={{ height: 200 }}
                                         image={item}
@@ -64,7 +80,7 @@ export default function App(){
                             }
                             checkedIcon={
                                 <ImageListItem key={item} sx={{border: 4}}>
-                                    <Card sx={{ minWidth: (window.innerWidth-100-30*2)/3 }}>
+                                    <Card sx={{ minWidth: (windowSize.width-100-30*2)/3 }}>
                                         <CardMedia
                                             sx={{ height: 200 }}
                                             image={item}
