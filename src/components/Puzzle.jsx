@@ -1,3 +1,12 @@
+//できた！！！ピースをはめる処理がうまくいっていない、ピースを離し、違うピースを動かした瞬間にはまる処理がされている感じ、下にピースがあってもはまってしまう
+//ピースがフィールドをはみ出す
+//ピースを動かすときにぴくぴく動く
+//シャッフルボタン
+//画像をチェンジするボタン
+//シャッフル後揃ったらクリアと表示
+//読み込みに時間がかかる問題
+//ピースに凹凸をつける
+//画像をアップロードしパズルができるようにする(できたら)
 import { useEffect, useState,useRef } from "react";
 import { Layer, Rect,Image as KonvaImage, Stage,Group } from "react-konva";
 import useImage from 'use-image';
@@ -10,6 +19,7 @@ export default function Puzzle({ imageUrl }){
     const [pieces, setPieces] = useState([]);
     const [movePiece,setMovePiece] = useState();
     const [puzzleSize, setPuzzleSize] = useState({ cols: 0, rows: 0 });
+    const [refreshKey, setRefreshKey] = useState(0);
     const layerRef = useRef(null);
 
     const handleChange = ()=>{
@@ -102,6 +112,7 @@ export default function Puzzle({ imageUrl }){
     }
 
     const handleMouseUp = (e,id) => {
+        console.log("hello");
         const stage = e.target.getStage();
         const newPosition = stage.getPointerPosition();
         let newPos ={};
@@ -110,36 +121,36 @@ export default function Puzzle({ imageUrl }){
             const pos = Math.floor(newPosition.y / 80) * 8 + Math.floor(newPosition.x / 80);
             if(pos != pieces[id].position){
                 let i = 0;
-                while(i < puzzleSize.cols * puzzleSize.rows && pos != pieces[id].position){
+                while(i < puzzleSize.cols * puzzleSize.rows && pos != pieces[i].position){
                     i++;
                 }
                 if(i == puzzleSize.cols * puzzleSize.rows){
                     //setPosition({ x: 10+Math.floor(newPosition.x / 80)*80, y: 10+Math.floor(newPosition.y / 80)*80});
-                    pieces[id].x = 10+Math.floor(newPosition.x / 80)*80;
-                    pieces[id].y = 10+Math.floor(newPosition.y / 80)*80;
+                    //pieces[id].x = 10+Math.floor(newPosition.x / 80)*80;
+                    //pieces[id].y = 10+Math.floor(newPosition.y / 80)*80;
                     newPos = { x: 10+Math.floor(newPosition.x / 80)*80, y: 10+Math.floor(newPosition.y / 80)*80};
-                    pieces[id].position = pos;
+                    newPieces[id].position = pos;
                 } else {
-                    if(piece.position < puzzleSize.cols * puzzleSize.rows){
+                    if(pieces[id].position < puzzleSize.cols * puzzleSize.rows){
                         //setPosition({ x: 10+piece.position % 8 * 80, y: 10+Math.floor(piece.position / 8) * 80});
-                        pieces[id].x = 10+pieces[id].position % 8 * 80;
-                        pieces[id].y = 10+Math.floor(pieces[id].position / 8) * 80;
+                        //pieces[id].x = 10+pieces[id].position % 8 * 80;
+                        //pieces[id].y = 10+Math.floor(pieces[id].position / 8) * 80;
                         newPos = { x: 10+pieces[id].position % 8 * 80, y: 10+Math.floor(pieces[id].position / 8) * 80};
                     } else {
                         //setPosition({ x: piece.prevX, y: piece.prevY });
-                        pieces[id].x = pieces[id].prevX;
-                        pieces[id].y = pieces[id].prevY;
+                        //pieces[id].x = pieces[id].prevX;
+                        //pieces[id].y = pieces[id].prevY;
                         newPos = { x: pieces[id].prevX, y: pieces[id].prevY };
                     }
                 }
             } else {
                 //setPosition({ x: 10+piece.position % 8 * 80, y: 10+Math.floor(piece.position / 8) * 80});
-                pieces[id].x = 10+pieces[id].position % 8 * 80;
-                pieces[id].y = 10+Math.floor(pieces[id].position / 8) * 80;
+                //pieces[id].x = 10+pieces[id].position % 8 * 80;
+                //pieces[id].y = 10+Math.floor(pieces[id].position / 8) * 80;
                 newPos = { x: 10+pieces[id].position % 8 * 80, y: 10+Math.floor(pieces[id].position / 8) * 80};
             }
         } else {
-            pieces[id].position = puzzleSize.cols * puzzleSize.rows;
+            newPieces[id].position = puzzleSize.cols * puzzleSize.rows;
             let newX = newPosition.x- PIECE_SIZE/2;
             let newY = newPosition.y- PIECE_SIZE/2;
             if (newX < -PIECE_SIZE / 2){
@@ -155,12 +166,16 @@ export default function Puzzle({ imageUrl }){
                 newY = stage.height() - PIECE_SIZE / 4*3;
             }
             //setPosition({ x: newX, y: newY });
-            pieces[id].x = newX;
-            pieces[id].y = newY;
+            //pieces[id].x = newX;
+            //pieces[id].y = newY;
             newPos = { x: newX, y: newY };
         }
-        newPieces[id].prevX = newPos.x;
-        newPieces[id].prevY = newPos.y;
+        //newPieces[id].prevX = newPos.x;
+        //newPieces[id].prevY = newPos.y;
+        console.log(newPos)
+        newPieces[id].x = newPos.x;
+        newPieces[id].y = newPos.y;
+        console.log(newPieces[id])
         setPieces(newPieces);
     };
 
@@ -169,14 +184,15 @@ export default function Puzzle({ imageUrl }){
         <div style={{marginBottom:5}}>
             <Button variant="outlined" size="large" onChange={handleChange}>Shuffle</Button>
         </div>
-        <Stage width={puzzleSize.cols * PIECE_SIZE*2} height={puzzleSize.rows * PIECE_SIZE*1.3}>
+        <Stage width={window.innerWidth -30}//</>puzzleSize.cols * PIECE_SIZE*2} 
+                height={puzzleSize.rows * PIECE_SIZE*1.3}>
             <Layer ref={layerRef}>
                 <Rect
                     stroke='black'
                     strokeWidth={3}
                     x={0}
                     y={0}
-                    width={puzzleSize.cols * PIECE_SIZE * 2}
+                    width={window.innerWidth -30}//puzzleSize.cols * PIECE_SIZE * 2}
                     height={puzzleSize.rows * PIECE_SIZE * 1.3}
                 />
                 <Rect
@@ -197,7 +213,10 @@ export default function Puzzle({ imageUrl }){
                         e.target.moveToTop();
                         handleDragMove(e, i);
                     }}
-                    onMouseUp={(e) => handleMouseUp(e, i)}
+                    onMouseUp={(e) => {handleMouseUp(e, i);
+                        console.log(piece.x,piece.y);
+                        setRefreshKey(prevKey => prevKey + 1);
+                    }}
                     >
                     <KonvaImage
                         image={image}
@@ -223,4 +242,3 @@ export default function Puzzle({ imageUrl }){
         </>
     );
 }
-//ピースをはめる処理がうまくいっていない、ピースを離し、違うピースを動かした瞬間にはまる処理がされている感じ、下にピースがあってもはまってしまう
