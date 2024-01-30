@@ -1,13 +1,14 @@
 //できた！！！ピースをはめる処理がうまくいっていない、ピースを離し、違うピースを動かした瞬間にはまる処理がされている感じ、下にピースがあってもはまってしまう
-//ピースがフィールドをはみ出す
-//ピースを動かすときにぴくぴく動く
+//できた！！！ピースがフィールドをはみ出す
+//出来たっぽい！！？ピースを動かすときにぴくぴく動く
+
 //シャッフルボタン
 //画像をチェンジするボタン
 //シャッフル後揃ったらクリアと表示
 //読み込みに時間がかかる問題
 //ピースに凹凸をつける
 //画像をアップロードしパズルができるようにする(できたら)
-import { useEffect, useState,useRef } from "react";
+import { useEffect, useState,useRef,createRef } from "react";
 import { Layer, Rect,Image as KonvaImage, Stage,Group } from "react-konva";
 import useImage from 'use-image';
 import Button from '@mui/material/Button';
@@ -19,13 +20,19 @@ export default function Puzzle({ imageUrl }){
     const [pieces, setPieces] = useState([]);
     const [movePiece,setMovePiece] = useState();
     const [puzzleSize, setPuzzleSize] = useState({ cols: 0, rows: 0 });
+    const [windowSize,setWindowSize] = useState({w:window.innerWidth,h:puzzleSize.rows * PIECE_SIZE*1.3});
     const [refreshKey, setRefreshKey] = useState(0);
     const layerRef = useRef(null);
+    const [nodeRefs,setNodeRefs] = useState([]);
 
     const handleChange = ()=>{
         const newPieces = pieces; 
         setPieces(newPieces.sort(() => Math.random() - 0.5));
     };
+
+    useEffect(() =>{
+        setWindowSize({w:window.innerWidth,h:puzzleSize.rows * PIECE_SIZE*1.3})
+    },[window.innerWidth,puzzleSize]);
 
     useEffect(() => {
         ( () =>{
@@ -62,121 +69,71 @@ export default function Puzzle({ imageUrl }){
                     });
                 }
             }
+            setNodeRefs(newPieces.map(() => createRef()));
             setPieces(newPieces);
-            console.log(newPieces);
+            console.log(windowSize);
         }
         })();
     },[puzzleSize,image]);
 
-    const handleDragMove = (e,i) => {
-        const stage = e.target.getStage();
-        const mousePos = stage.getPointerPosition();
-        console.log("mouse"+mousePos.x,mousePos.y);
-        console.log("piece"+e.target.x(),e.target.y());
-        let newX = mousePos.x - PIECE_SIZE/2;
-        let newY = mousePos.y - PIECE_SIZE/2;
-        if (newX < -PIECE_SIZE / 2){
-            newX = -PIECE_SIZE / 4;
-        }
-        if (newY < -PIECE_SIZE / 2){
-            newY = -PIECE_SIZE / 4;
-        }
-        if (newX > stage.width() - PIECE_SIZE / 2){
-            newX = stage.width() - PIECE_SIZE / 4*3;
-        }
-        if (newY > stage.height() - PIECE_SIZE / 2){
-            newY = stage.height() - PIECE_SIZE / 4*3;
-        }
-        const newPieces = pieces.map((piece, index) => {
-            if (index === i) {
-                return { 
-                    x: newX,
-                    y: newY,
-                    order: piece.order,
-                    position: piece.position,
-                    originX: piece.originX,
-                    originY: piece.originY,
-                    cropX: piece.cropX,
-                    cropY: piece.cropY,
-                    cropW: piece.cropW,
-                    cropH: piece.cropH,
-                    prevX: piece.prevX,
-                    prevY: piece.prevY,
-                };
-            } else {
-                return piece;
-            }
-        });
+    useEffect(() => {
+        console.log("Updated pieces: ", pieces);
+    }, [pieces]);
     
-        setPieces(newPieces);
+
+    const handleDragStart = (e,i) =>{
+        console.log("strat ");
+        console.log(pieces[i]);
     }
 
-    const handleMouseUp = (e,id) => {
-        console.log("hello");
+
+
+    const handleDragEnd = (e,id) => {
         const stage = e.target.getStage();
         const newPosition = stage.getPointerPosition();
         let newPos ={};
-        let newPieces = pieces;
-        if(0 <= newPosition.x && puzzleSize.cols*PIECE_SIZE >= newPosition.x && 0 <= newPosition.y && puzzleSize.rows * PIECE_SIZE >= newPosition.y ){
-            const pos = Math.floor(newPosition.y / 80) * 8 + Math.floor(newPosition.x / 80);
+        let newPieces = [...pieces];
+        let prevPos ={x:newPieces[id].x,y:newPieces[id].y};
+        console.log("a");
+        console.log(newPieces[id]);
+        if(puzzleSize.cols*PIECE_SIZE >= newPosition.x && puzzleSize.rows * PIECE_SIZE >= newPosition.y ){
+            const pos = Math.floor(Math.max(0,(newPosition.y-10)) / 80) * 8 + Math.floor(Math.max(0,(newPosition.x-10)) / 80);
             if(pos != pieces[id].position){
                 let i = 0;
                 while(i < puzzleSize.cols * puzzleSize.rows && pos != pieces[i].position){
                     i++;
                 }
                 if(i == puzzleSize.cols * puzzleSize.rows){
-                    //setPosition({ x: 10+Math.floor(newPosition.x / 80)*80, y: 10+Math.floor(newPosition.y / 80)*80});
-                    //pieces[id].x = 10+Math.floor(newPosition.x / 80)*80;
-                    //pieces[id].y = 10+Math.floor(newPosition.y / 80)*80;
-                    newPos = { x: 10+Math.floor(newPosition.x / 80)*80, y: 10+Math.floor(newPosition.y / 80)*80};
+                    newPos = { x: 10+Math.floor((newPosition.x-10) / 80)*80, y: 10+Math.floor((newPosition.y-10) / 80)*80};
                     newPieces[id].position = pos;
                 } else {
                     if(pieces[id].position < puzzleSize.cols * puzzleSize.rows){
-                        //setPosition({ x: 10+piece.position % 8 * 80, y: 10+Math.floor(piece.position / 8) * 80});
-                        //pieces[id].x = 10+pieces[id].position % 8 * 80;
-                        //pieces[id].y = 10+Math.floor(pieces[id].position / 8) * 80;
                         newPos = { x: 10+pieces[id].position % 8 * 80, y: 10+Math.floor(pieces[id].position / 8) * 80};
                     } else {
-                        //setPosition({ x: piece.prevX, y: piece.prevY });
-                        //pieces[id].x = pieces[id].prevX;
-                        //pieces[id].y = pieces[id].prevY;
-                        newPos = { x: pieces[id].prevX, y: pieces[id].prevY };
+                        newPos = { x: pieces[id].x, y: pieces[id].y };
+                        prevPos={ x: pieces[id].x, y: pieces[id].y };
                     }
                 }
             } else {
-                //setPosition({ x: 10+piece.position % 8 * 80, y: 10+Math.floor(piece.position / 8) * 80});
-                //pieces[id].x = 10+pieces[id].position % 8 * 80;
-                //pieces[id].y = 10+Math.floor(pieces[id].position / 8) * 80;
                 newPos = { x: 10+pieces[id].position % 8 * 80, y: 10+Math.floor(pieces[id].position / 8) * 80};
             }
         } else {
             newPieces[id].position = puzzleSize.cols * puzzleSize.rows;
-            let newX = newPosition.x- PIECE_SIZE/2;
-            let newY = newPosition.y- PIECE_SIZE/2;
-            if (newX < -PIECE_SIZE / 2){
-                newX = -PIECE_SIZE / 4;
-            }
-            if (newY < -PIECE_SIZE / 2){
-                newY = -PIECE_SIZE / 4;
-            }
-            if (newX > stage.width() - PIECE_SIZE / 2){
-                newX = stage.width() - PIECE_SIZE / 4*3;
-            }
-            if (newY > stage.height() - PIECE_SIZE / 2){
-                newY = stage.height() - PIECE_SIZE / 4*3;
-            }
-            //setPosition({ x: newX, y: newY });
-            //pieces[id].x = newX;
-            //pieces[id].y = newY;
+            //let newX = newPosition.x- PIECE_SIZE/2;
+            //let newY = newPosition.y- PIECE_SIZE/2;
+            let newX = e.target.x();
+            let newY = e.target.y();
             newPos = { x: newX, y: newY };
         }
-        //newPieces[id].prevX = newPos.x;
-        //newPieces[id].prevY = newPos.y;
-        console.log(newPos)
+        console.log(newPos);
+        newPieces[id].prevX = prevPos.x;
+        newPieces[id].prevY = prevPos.y;
         newPieces[id].x = newPos.x;
         newPieces[id].y = newPos.y;
-        console.log(newPieces[id])
         setPieces(newPieces);
+        nodeRefs[id].current.position({ x: newPos.x, y: newPos.y });
+        console.log("b");
+        console.log(newPieces[id]);
     };
 
     return (
@@ -205,17 +162,25 @@ export default function Puzzle({ imageUrl }){
                 />
                 {pieces.map((piece, i) => (
                     <Group
+                    ref={nodeRefs[i]}
                     key={i}
                     x={piece.x}
                     y={piece.y}
                     draggable
+                    onMouseDown={(e)=>{handleDragStart(e,i)}}
                     onDragMove={(e) => {
                         e.target.moveToTop();
-                        handleDragMove(e, i);
+                        //handleDragMove(e, i);
+                        console.log("piece "+piece.x,piece.y);
                     }}
-                    onMouseUp={(e) => {handleMouseUp(e, i);
-                        console.log(piece.x,piece.y);
-                        setRefreshKey(prevKey => prevKey + 1);
+                    dragBoundFunc={(pos) => {
+                        //console.log("start "+piece.x,piece.y);
+                        return{x: Math.min(Math.max(pos.x, -PIECE_SIZE*0.25), windowSize.w - PIECE_SIZE*1.15),
+                            y: Math.min(Math.max(pos.y, -PIECE_SIZE*0.25), windowSize.h - PIECE_SIZE*0.75)};
+                    }}
+                    onDragEnd={(e) => {handleDragEnd(e, i);
+                        console.log("end "+piece.x,piece.y);
+                        setRefreshKey(refreshKey => refreshKey + 1);
                     }}
                     >
                     <KonvaImage
