@@ -1,13 +1,3 @@
-//できた！！！ピースをはめる処理がうまくいっていない、ピースを離し、違うピースを動かした瞬間にはまる処理がされている感じ、下にピースがあってもはまってしまう
-//できた！！！ピースがフィールドをはみ出す
-//出来たっぽい！！？ピースを動かすときにぴくぴく動く
-
-//シャッフルボタン
-//画像をチェンジするボタン
-//シャッフル後揃ったらクリアと表示
-//読み込みに時間がかかる問題
-//ピースに凹凸をつける
-//画像をアップロードしパズルができるようにする(できたら)
 import { useEffect, useState,useRef,createRef } from "react";
 import { Layer, Rect,Image as KonvaImage, Stage,Group } from "react-konva";
 import useImage from 'use-image';
@@ -26,8 +16,19 @@ export default function Puzzle({ imageUrl }){
     const [nodeRefs,setNodeRefs] = useState([]);
 
     const handleChange = ()=>{
-        const newPieces = pieces; 
-        setPieces(newPieces.sort(() => Math.random() - 0.5));
+        const shuffledPieces = [...pieces];
+        for(let i = shuffledPieces.length - 1;i >= 0;i--){
+            shuffledPieces[i].x = 10+shuffledPieces[i].order % 8 * PIECE_SIZE;
+            shuffledPieces[i].y = 10+Math.floor(shuffledPieces[i].order / 8) * PIECE_SIZE;
+            shuffledPieces[i].position = shuffledPieces[i].order;
+        }
+        for (let i = shuffledPieces.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffledPieces[i].x, shuffledPieces[j].x] = [shuffledPieces[j].x, shuffledPieces[i].x];
+            [shuffledPieces[i].y, shuffledPieces[j].y] = [shuffledPieces[j].y, shuffledPieces[i].y];
+            [shuffledPieces[i].position, shuffledPieces[j].position] = [shuffledPieces[j].position, shuffledPieces[i].position];
+        }
+        setPieces(shuffledPieces);
     };
 
     useEffect(() =>{
@@ -139,7 +140,7 @@ export default function Puzzle({ imageUrl }){
     return (
         <>
         <div style={{marginBottom:5}}>
-            <Button variant="outlined" size="large" onChange={handleChange}>Shuffle</Button>
+            <Button variant="outlined" size="large" onClick={handleChange}>Shuffle</Button>
         </div>
         <Stage width={window.innerWidth -30}//</>puzzleSize.cols * PIECE_SIZE*2} 
                 height={puzzleSize.rows * PIECE_SIZE*1.3}>
@@ -204,6 +205,12 @@ export default function Puzzle({ imageUrl }){
                 ))}
             </Layer>
         </Stage>
+        <div style={{textAlign:"center"}}>
+            <p>
+                正解
+            </p>
+            <img src={imageUrl} width={windowSize.w/3}/>
+        </div>
         </>
     );
 }

@@ -6,7 +6,7 @@ import {
     RadioGroup,
     Card,
     CardMedia,
-    Button,
+    Button ,
     FormControl,
     FormControlLabel,
     Grid
@@ -32,6 +32,8 @@ export default function App(){
     const [dogPictures,setDogPictures] = useState([]);
     const [catPictures,setCatPictures] = useState([]);
     const [value, setValue] = useState("dog");
+    const [selectedValue, setSelectedValue] = useState(0);
+    const [uploadFile,setUploadFile] = useState(null);
     const [windowSize, setWindowSize] = useState({
         width: window.innerWidth,
         height: window.innerHeight,
@@ -39,9 +41,46 @@ export default function App(){
 
     const handleChange = (e) => {
         setValue(e.target.value);
+        setSelectedValue(null);
     };
     const handleChangeList = (e) => {
+        console.log("dogcat");
         setPuzzleContent({dogcat:e.target.name,id:e.target.value});
+        setSelectedValue(e.target.value);
+    };
+
+    const onFileChange = (e) => {
+        console.log("File");
+        const files = e.target.files;
+        if (files.length > 0) {
+            var file = files[0];
+            var reader = new FileReader();
+            reader.onload = (e) => {
+                setUploadFile(e.target.result);
+                setPuzzleContent({dogcat:"other",id:-1});
+                setSelectedValue(null);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            setUploadFile(null);
+        }
+    };
+
+    const handleClick = () => {
+        (async () =>{ 
+            const newContent = await fetchData();
+            setDogPictures(newContent.dog);
+            setCatPictures(newContent.cat);
+            if(value == "dog"){
+                setListContents(newContent.dog);
+                setPuzzleContent({dogcat:"dog",id:0});
+            } else {
+                setListContents(newContent.cat);
+                setPuzzleContent({dogcat:"cat",id:0})
+            }
+            setSelectedValue(0);
+            
+        })();
     };
     
     useEffect(() => {
@@ -80,14 +119,14 @@ export default function App(){
             event.preventDefault();
             
         }}>
-            {listContents.length > 0 && <Puzzle imageUrl={puzzleContent.dogcat == "dog" ? dogPictures[puzzleContent.id] : catPictures[puzzleContent.id]}/>}
+            {listContents.length > 0 && <Puzzle imageUrl={puzzleContent.dogcat == "other" ? uploadFile :( puzzleContent.dogcat == "dog" ? dogPictures[puzzleContent.id] : catPictures[puzzleContent.id])}/>}
             <Grid container alignItems='center' justifyContent='center'>
                 <Grid item>
                     <FormControl sx={{ width: "100%" }}>
                         <RadioGroup
-                        aria-labelledby="radio-buttons-group-label"
+                        aria-labelledby="radio-button s-group-label"
                         defaultValue="dog"
-                        name="radio-buttons-group"
+                        name="radio-button s-group"
                         value={value}
                         onChange={handleChange}
                         row
@@ -97,7 +136,7 @@ export default function App(){
                             control={<Radio />}
                             label="Dog"
                             sx={{
-                                width: windowSize.width/4,
+                                width: windowSize.width/5,
                                 border: `${
                                     value === "dog" ? "2px solid blue" : "1px solid black"
                                 }`,
@@ -110,7 +149,7 @@ export default function App(){
                             control={<Radio />}
                             label="Cat"
                             sx={{
-                                width: windowSize.width/4,
+                                width: windowSize.width/5,
                                 border: `${
                                     value === "cat" ? "2px solid blue" : "1px solid black"
                                 }`,
@@ -121,9 +160,48 @@ export default function App(){
                         </RadioGroup>
                     </FormControl>
                 </Grid>
+                <Grid item>
+                    <Button 
+                        variant="outlined" 
+                        size="large" 
+                        onClick={handleClick}
+                        sx={{
+                            width: windowSize.width/5, 
+                            borderColor: 'black', 
+                            p: "9px 0",
+                            m: "8px 0", 
+                            borderRadius: "4px" 
+                          }}
+                          >Change</Button>
+                </Grid>
+                <Grid item>
+                <div>
+                    <input
+                    type="file"
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                    id="contained-button-file"
+                    onChange={onFileChange}
+                    />
+                    <label htmlFor="contained-button-file">
+                        <Button 
+                        variant="outlined" 
+                        size="large" 
+                        component="span"
+                        sx={{
+                            width: windowSize.width/5, 
+                            borderColor: 'black', 
+                            p: "9px 0",
+                            m: "8px 0", 
+                            borderRadius: "4px" 
+                          }}
+                          >Upload</Button>
+                    </label>
+                </div>
+                </Grid>
             </Grid>
             <div className="pictrures" style={{marginLeft: 25,marginRight: 25,marginTop:10}}>
-                <RadioGroup defaultValue={value+0} name="picture" onChange={handleChangeList}>
+                <RadioGroup value={selectedValue} name="picture" onChange={handleChangeList}>
                     <ImageList cols={3} gap={30} style={{marginLeft: 20,marginRight: 20,marginTop:10,padding:5}}>
                         {listContents.map((item,i) => (
                             <Radio
