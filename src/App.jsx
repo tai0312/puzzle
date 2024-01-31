@@ -44,13 +44,11 @@ export default function App(){
         setSelectedValue(null);
     };
     const handleChangeList = (e) => {
-        console.log("dogcat");
         setPuzzleContent({dogcat:e.target.name,id:e.target.value});
         setSelectedValue(e.target.value);
     };
 
     const onFileChange = (e) => {
-        console.log("File");
         const files = e.target.files;
         if (files.length > 0) {
             var file = files[0];
