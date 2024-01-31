@@ -14,6 +14,7 @@ export default function Puzzle({ imageUrl }){
     const layerRef = useRef(null);
     const [nodeRefs,setNodeRefs] = useState([]);
     const [game,setGame] = useState(false);
+    const [clear,setClear] = useState(false);
 
     const handleChange = ()=>{
         const shuffledPieces = [...pieces];
@@ -44,6 +45,7 @@ export default function Puzzle({ imageUrl }){
                     rows: Math.floor(8 * image.height /image.width),
                 });
                 setGame(false);
+                setClear(false);
             }
         })();
     }, [image]);
@@ -77,16 +79,13 @@ export default function Puzzle({ imageUrl }){
     },[puzzleSize,image]);
 
     useEffect(() => {
-        if(game){
-            let i=0;
-            while(i < puzzleSize.cols*puzzleSize.rows && pieces[i].position == pieces[i].order){
-                i++;
-            }
-            if(i == puzzleSize.cols*puzzleSize.rows){
-                alert("クリアおめでとう！！");
-            }
+        if (!game) return;
+        const isComplete = pieces.every((piece, index) => piece.position === index);
+        if (isComplete) {
+            setClear(true);
+            setGame(false);
         }
-    },[pieces]);
+    },[pieces,game]);
 
     const handleDragEnd = (e,id) => {
         const stage = e.target.getStage();
@@ -133,6 +132,7 @@ export default function Puzzle({ imageUrl }){
         <>
         <div style={{marginBottom:5}}>
             <Button variant="outlined" size="large" onClick={handleChange}>Shuffle</Button>
+            {clear&&<div style={{textAlign:"center"}}>クリアおめでとう！！</div>}
         </div>
         <Stage width={window.innerWidth -30}
                 height={puzzleSize.rows * PIECE_SIZE*1.3}>
