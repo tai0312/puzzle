@@ -13,6 +13,7 @@ export default function Puzzle({ imageUrl }){
     const [refreshKey, setRefreshKey] = useState(0);
     const layerRef = useRef(null);
     const [nodeRefs,setNodeRefs] = useState([]);
+    const [game,setGame] = useState(false);
 
     const handleChange = ()=>{
         const shuffledPieces = [...pieces];
@@ -28,6 +29,7 @@ export default function Puzzle({ imageUrl }){
             [shuffledPieces[i].position, shuffledPieces[j].position] = [shuffledPieces[j].position, shuffledPieces[i].position];
         }
         setPieces(shuffledPieces);
+        setGame(true);
     };
 
     useEffect(() =>{
@@ -41,6 +43,7 @@ export default function Puzzle({ imageUrl }){
                     cols: 8,
                     rows: Math.floor(8 * image.height /image.width),
                 });
+                setGame(false);
             }
         })();
     }, [image]);
@@ -72,6 +75,18 @@ export default function Puzzle({ imageUrl }){
         }
         })();
     },[puzzleSize,image]);
+
+    useEffect(() => {
+        if(game){
+            let i=0;
+            while(i < puzzleSize.cols*puzzleSize.rows && pieces[i].position == pieces[i].order){
+                i++;
+            }
+            if(i == puzzleSize.cols*puzzleSize.rows){
+                alert("クリアおめでとう！！");
+            }
+        }
+    },[pieces]);
 
     const handleDragEnd = (e,id) => {
         const stage = e.target.getStage();
